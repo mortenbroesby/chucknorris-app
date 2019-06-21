@@ -9,12 +9,28 @@ $colors: (
   'white':          rgba(255, 255, 255, 1),
 );
 
-// Color variables
+/* Color variables */
 $main-application-background: map-get($colors, 'background');
 
 /* Mixins */
 @function color($key) {
   @return map-get($colors, $key);
+}
+
+/* Z-index landscape */
+$z-index: (
+  spinner             : 100,
+  dialog              : 90,
+  menu                : 20,
+  base                : 15,
+);
+
+@function z-index($key) {
+  @return map-get($z-index, $key);
+}
+
+@mixin z-index($key) {
+  z-index: z-index($key);
 }
 
 html,

@@ -8,6 +8,7 @@ import { JokeCollectionModel } from "../../models/jokeCollection.model";
 import { JokeModel } from "../../models/joke.model";
 
 import template from "./storefront.vue";
+import "./storefront.scss";
 
 @Component({
   mixins: [template],

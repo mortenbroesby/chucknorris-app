@@ -1,3 +1,5 @@
+@import "../../styles/global.scss";
+
 .spinnerFade-enter {
   opacity: 0;
 }
@@ -16,11 +18,10 @@
   width: 100vw;
   height: 100vh;
   margin: 0 auto;
-  z-index: 101;
-
   display: flex;
   align-items: center;
   justify-content: center;
+  @include z-index(spinner);
 
   .spinner--component {
     color: #ffffff;
