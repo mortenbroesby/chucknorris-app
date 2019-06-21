@@ -1,3 +1,16 @@
+.fade-enter {
+  opacity: 0;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: 200ms all ease;
+}
+
+.fade-leave-to {
+  opacity: 0;
+}
+
 body {
   background: rgba(232, 232, 232, 1);
 }

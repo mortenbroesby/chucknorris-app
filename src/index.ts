@@ -4,7 +4,7 @@ import Vue from "vue";
 import { Component } from "vue-property-decorator";
 
 import { router } from "./router";
-import { $store } from "./store";
+import { $store, RootState } from "./store";
 
 // Setup logger
 const logLevel = Logger.DEBUG;
@@ -27,10 +27,10 @@ import "./App.scss";
 /*************************************************/
 function initialiseApplication() {
   @Component({
+    mixins: [App],
     store: $store,
     router: router,
     components: {},
-    render: h => h(App),
   })
   class Application extends Vue {
     /*************************************************/
@@ -39,13 +39,20 @@ function initialiseApplication() {
     mounted() {
       Logger.info("Application initialised.");
     }
+
+    /*************************************************/
+    /* COMPUTED'S */
+    /*************************************************/
+    get store(): RootState {
+      return $store.state;
+    }
+
+    get spinnerVisible(): boolean {
+      return this.store.spinnerVisible;
+    }
   }
 
-  new Application({
-    router: router,
-    store: $store,
-    render: h => h(App),
-  }).$mount("#app");
+  new Application().$mount("#app");
 }
 
 /*************************************************/
