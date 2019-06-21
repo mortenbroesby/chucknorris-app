@@ -26,7 +26,22 @@ import "./App.scss";
 /* APPLICATION SETUP  */
 /*************************************************/
 function initialiseApplication() {
-  new Vue({
+  @Component({
+    store: $store,
+    router: router,
+    components: {},
+    render: h => h(App),
+  })
+  class Application extends Vue {
+    /*************************************************/
+    /* LIFE CYCLE EVENTS */
+    /*************************************************/
+    mounted() {
+      Logger.info("Application initialised.");
+    }
+  }
+
+  new Application({
     router: router,
     store: $store,
     render: h => h(App),
