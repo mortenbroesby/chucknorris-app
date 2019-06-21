@@ -11,6 +11,19 @@
   opacity: 0;
 }
 
+html,
 body {
   background: rgba(232, 232, 232, 1);
+  font-size: 14px;
+  line-height: 1;
+}
+
+.application,
+.main-route {
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  top: 0;
+  left: 0;
 }

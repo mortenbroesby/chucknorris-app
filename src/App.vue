@@ -1,5 +1,5 @@
 <template>
-  <div id="test" class="test">
+  <div id="application" class="application">
     <spinner v-show="spinnerVisible"></spinner>
 
     <transition name="fade" mode="out-in">

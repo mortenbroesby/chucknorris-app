@@ -1,8 +1,8 @@
 <template>
-  <div class="spinner">
-    <div class="centered">
-      Spinner
+  <transition name="spinnerFade" mode="in-out">
+    <div class="spinner">
+      <div class="spinner--component"></div>
     </div>
-  </div>
+  </transition>
 </template>
-<style lang="scss" src="./spinner.scss" scoped></style>
+
