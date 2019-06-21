@@ -1,20 +1,22 @@
+// https://eslint.org/docs/user-guide/configuring
+
 module.exports = {
+  root: true,
+  parserOptions: {
+    parser: 'babel-eslint'
+  },
   env: {
     browser: true,
-    es6: true,
   },
-  extends: 'airbnb-base',
-  globals: {
-    Atomics: 'readonly',
-    SharedArrayBuffer: 'readonly',
-  },
-  parserOptions: {
-    ecmaVersion: 2018,
-    sourceType: 'module',
-  },
-  plugins: [
-    'vue',
+  extends: [
+    'plugin:vue/essential',
+    'airbnb'
   ],
+  // required to lint *.vue files
+  plugins: [
+    'vue'
+  ],
+  // add your custom rules here
   rules: {
     // allow paren-less arrow functions
     'arrow-parens': 0,
@@ -29,6 +31,8 @@ module.exports = {
     'no-trailing-spaces': [2, { "skipBlankLines": true }],
 
     // allow debugger during development
-    'no-debugger': 'off' // 'error' : 'off'
-  },
-};
+		'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',
+		'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
+  }
+}
+
