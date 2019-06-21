@@ -3,7 +3,8 @@ import { Component } from "vue-property-decorator";
 import Logger from "js-logger";
 
 import LoginValidatorService from "../../services/loginValidator.service";
-import { UserCredentials } from "../../interfaces";
+import { UserCredentials, InputValidationMessage } from "../../interfaces";
+import { stringIsEmpty } from "../../utilities";
 
 import { RootState, $store } from "../../store";
 
@@ -20,6 +21,9 @@ export default class Login extends Vue {
   username: string = "";
   password: string = "";
 
+  toastMessage: string = "";
+  toastMessageClearTimeout: any = -1;
+
   loginValidator: LoginValidatorService = new LoginValidatorService();
 
   /*************************************************/
@@ -33,6 +37,21 @@ export default class Login extends Vue {
     return this.store.userIsAuthenticated;
   }
 
+  get toastIsVisible(): boolean {
+    return !stringIsEmpty(this.toastMessage);
+  }
+
+  get toastMessageToDisplay() {
+    return `Note: ${this.toastMessage}`;
+  }
+
+  /*************************************************/
+  /* LIFE CYCLE EVENTS */
+  /*************************************************/
+  beforeDestroy () {
+    window.clearTimeout(this.toastMessageClearTimeout);
+  }
+
   /*************************************************/
   /* METHODS */
   /*************************************************/
@@ -40,6 +59,16 @@ export default class Login extends Vue {
     Logger.info("clearFields");
     this.username = "";
     this.password = "";
+  }
+
+  showToastMessage(toastMessage: string) {
+    this.toastMessage = toastMessage;
+
+    window.clearTimeout(this.toastMessageClearTimeout);
+
+    this.toastMessageClearTimeout = setTimeout(() => {
+      this.toastMessage = "";
+    }, 1500);
   }
 
   submitLogin() {
@@ -51,8 +80,9 @@ export default class Login extends Vue {
     }).then((credentials: UserCredentials) => {
       Logger.info("Store credentials: ", credentials);
       $store.dispatch("loginUser", credentials);
-    }).catch((error: string) => {
-      Logger.error("Error logging in: ", error);
+    }).catch((rejection: InputValidationMessage) => {
+      Logger.error("Error logging in: ", rejection);
+      this.showToastMessage(rejection.message || "");
     });
   }
 }

@@ -29,5 +29,9 @@
         Login
       </button>
     </div>
+
+    <div class="toast" v-show="toastIsVisible">
+      {{ toastMessageToDisplay }}
+    </div>
   </div>
 </template>
