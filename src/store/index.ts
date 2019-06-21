@@ -2,6 +2,7 @@ import Vue from "vue";
 import * as Vuex from "vuex";
 import { UserCredentials } from "../interfaces";
 import { router, RouteName } from "../router";
+import { setItem, getItem, removeItem } from "../utilities";
 
 Vue.use(Vuex);
 
@@ -66,6 +67,11 @@ const mutations = {
 const actions = {
   initialiseApplication({ dispatch, commit }: Context): Promise<void> {
     return new Promise((resolve) => {
+      const savedCredentials = getItem("userCredentials");
+      if (savedCredentials) {
+        dispatch("loginUser", savedCredentials);
+      }
+
       // Load async data, etc.
       setTimeout(() => {
         dispatch("setApplicationInitialised", true);
@@ -84,8 +90,10 @@ const actions = {
   },
   setUserCredentials({ commit }: Context, credentials?: UserCredentials): void {
     if (credentials) {
+      setItem("userCredentials", credentials);
       commit("SET_USER_CREDENTIALS", credentials);
     } else {
+      removeItem("userCredentials");
       commit("SET_USER_CREDENTIALS", {
         username: "",
         password: "",
