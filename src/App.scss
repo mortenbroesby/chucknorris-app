@@ -1,3 +1,5 @@
+@import "./styles/global.scss";
+
 .fade-enter {
   opacity: 0;
 }
@@ -9,13 +11,6 @@
 
 .fade-leave-to {
   opacity: 0;
-}
-
-html,
-body {
-  background: rgba(232, 232, 232, 1);
-  font-size: 14px;
-  line-height: 1;
 }
 
 .application,
