@@ -1,16 +1,14 @@
-import Logger from "js-logger";
 import axios, { AxiosInstance } from "axios";
+import config from "../config";
 
 import { JokeCollectionModel } from "../models/jokeCollection.model";
-
-const requestTimeout = 15000;
 
 /*************************************************/
 /* API SETUP */
 /*************************************************/
 const requestJokesApi: AxiosInstance = axios.create({
   baseURL: `https://api.icndb.com`,
-  timeout: requestTimeout,
+  timeout: config.api.requestTimeout,
   headers: {
     "Content-Type": "application/json"
   }
