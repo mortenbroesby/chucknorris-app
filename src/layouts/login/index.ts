@@ -2,6 +2,7 @@ import Vue from "vue";
 import { Component } from "vue-property-decorator";
 
 import template from "./login.vue";
+import { RootState, $store } from "@/store";
 
 @Component({
   mixins: [template],
@@ -11,5 +12,17 @@ export default class Login extends Vue {
   /*************************************************/
   /* PROPERTIES */
   /*************************************************/
-  userLoggedIn: boolean = false;
+  username: string = "";
+  password: string = "";
+
+  /*************************************************/
+  /* COMPUTED'S */
+  /*************************************************/
+  get store(): RootState {
+    return $store.state;
+  }
+
+  get userIsAuthenticated(): boolean {
+    return this.store.userIsAuthenticated;
+  }
 }
