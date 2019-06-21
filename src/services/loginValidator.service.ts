@@ -1,26 +1,85 @@
 import Logger from "js-logger";
-import { UserCredentials } from "../interfaces";
+
+import {
+  UserCredentials,
+  InputValidationMessage,
+} from "../interfaces";
+
+import {
+  stringIsEmpty,
+  stringHasUpperCase,
+  stringContainsOnlyLetters,
+} from "../utilities";
 
 export default class LoginValidatorService {
-  checkCredentials(credentials: UserCredentials) {
+  checkCredentials(credentials: UserCredentials): Promise<UserCredentials> {
     return new Promise((resolve, reject) => {
-      const username = this.checkUsername(credentials.username);
-      const password = this.checkPassword(credentials.password);
+      const usernameCheck = this.checkUsername(credentials.username);
+      const passwordCheck = this.checkPassword(credentials.password);
 
-      if (username && password) {
+      if (usernameCheck.isValid && passwordCheck.isValid) {
         resolve(this.saltLoginCredentials(credentials));
       } else {
-        reject(`Invalid credentials: ${JSON.stringify(credentials)}`);
+        if (!usernameCheck.isValid) {
+          reject(usernameCheck);
+        } else {
+          reject(passwordCheck);
+        }
       }
     });
   }
 
-  checkUsername(value: string) {
-    return true;
+  checkUsername(value: string): InputValidationMessage {
+    if (stringIsEmpty(value)) {
+      Logger.info("Usernames cannot be empty.");
+      return {
+        isValid: false,
+        message: "Usernames cannot be empty."
+      };
+    }
+
+    return {
+      isValid: true
+    };
   }
 
-  checkPassword(value: string) {
-    return true;
+  checkPassword(value: string): InputValidationMessage {
+    // Passwords cannot be empty.
+    if (stringIsEmpty(value)) {
+      Logger.info("Passwords cannot be empty.");
+      return {
+        isValid: false,
+        message: "Passwords cannot be empty."
+      };
+    }
+
+    // Passwords cannot be longer than 32 characters.
+    if (value.length > 32) {
+      Logger.info("Passwords cannot be longer than 32 characters.");
+      return {
+        isValid: false,
+        message: "Passwords cannot be longer than 32 characters."
+      };
+    }
+
+    // Passwords can only contain lower case alphabetic characters.
+    if (stringHasUpperCase(value)) {
+      Logger.info("Passwords can only contain lower case characters.");
+      return {
+        isValid: false,
+        message: "Passwords can only contain lower case characters."
+      };
+    } else if (!stringContainsOnlyLetters(value)) {
+      Logger.info("Passwords can only contain alphabetic characters.");
+      return {
+        isValid: false,
+        message: "Passwords can only contain alphabetic characters."
+      };
+    }
+
+    return {
+      isValid: true
+    };
   }
 
   saltLoginCredentials(credentials: UserCredentials) {

@@ -116,3 +116,22 @@ function migrateStoredData(storageItem: StorageItem) {
     return parseStoredData(storageItem);
   }
 }
+
+/*************************************************/
+/* GENERIC UTILITY FUNCTIONS */
+/*************************************************/
+export function stringIsEmpty(string: string) {
+  return (!string || 0 === string.length);
+}
+
+export function stringHasUpperCase(string: string) {
+  return /[A-Z]/.test(string);
+}
+
+export function stringHasNumber(string: string) {
+  return /\d/.test(string);
+}
+
+export function stringContainsOnlyLetters(string: string) {
+  return /^[a-zA-Z]+$/.test(string);
+}
