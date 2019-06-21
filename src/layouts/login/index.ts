@@ -1,5 +1,6 @@
 import Vue from "vue";
 import { Component } from "vue-property-decorator";
+import Logger from "js-logger";
 
 import { RootState, $store } from "../../store";
 
@@ -25,5 +26,18 @@ export default class Login extends Vue {
 
   get userIsAuthenticated(): boolean {
     return this.store.userIsAuthenticated;
+  }
+
+  /*************************************************/
+  /* METHODS */
+  /*************************************************/
+  clearFields() {
+    Logger.info("clearFields");
+    this.username = "";
+    this.password = "";
+  }
+
+  submitLogin() {
+    Logger.info("submitLogin");
   }
 }

@@ -34,7 +34,7 @@ export interface RootState {
 export const state: RootState = {
   applicationHasLoaded: false,
   spinnerVisible: false,
-  userIsAuthenticated: true,
+  userIsAuthenticated: false,
 };
 
 const mutations = {
