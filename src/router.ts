@@ -22,6 +22,13 @@ export enum RouteName {
 
 export const routes: RouteConfig[] = [
   {
+    path: "/",
+    redirect: `/${RouteName.LOGIN}/`,
+    meta: {
+      requiresAuthentication: false,
+    }
+  },
+  {
     path: `/${RouteName.LOGIN}/`,
     name: RouteName.LOGIN,
     component: Login,
