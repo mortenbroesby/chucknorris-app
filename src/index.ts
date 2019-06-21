@@ -19,6 +19,8 @@ Vue.config.performance = true;
 // Import components
 import App from "./App.vue";
 
+import Spinner from "./components/spinner";
+
 // Import styles
 import "./App.scss";
 
@@ -30,7 +32,9 @@ function initialiseApplication() {
     mixins: [App],
     store: $store,
     router: router,
-    components: {},
+    components: {
+      Spinner,
+    },
   })
   class Application extends Vue {
     /*************************************************/
