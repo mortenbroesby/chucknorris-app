@@ -1,29 +1,29 @@
 {
   "compilerOptions": {
-    "module": "esnext",
-    "moduleResolution": "node",
-    "newLine": "LF",
-    "outDir": "./lib/",
     "target": "es5",
-    "sourceMap": true,
-    "declaration": true,
-    "jsx": "preserve",
     "lib": [
-      "es2017",
-      "dom"
+      "dom",
+      "es2015"
     ],
-    "strict": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "noImplicitReturns": true,
-    "noFallthroughCasesInSwitch": true,
-    "emitDecoratorMetadata": true,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"]
+    },
+    "module": "es2015",
+    "moduleResolution": "node",
+    "isolatedModules": false,
     "experimentalDecorators": true,
-    "allowSyntheticDefaultImports": true,
-    "typeRoots": [
-      "./node_modules/@types/",
-      "./typings/"
-    ]
+    "noImplicitAny": true,
+    "noImplicitThis": true,
+    "strictNullChecks": true,
+    "suppressImplicitAnyIndexErrors": true,
+    "allowSyntheticDefaultImports": true
   },
-  "include": ["src/**/*"]
+  "include": [
+    "./src/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules/**/*"
+  ],
+  "compileOnSave": false
 }

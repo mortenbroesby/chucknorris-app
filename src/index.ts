@@ -3,7 +3,7 @@ import Logger from "js-logger";
 import Vue from "vue";
 
 import router from "./router";
-import store from "./store";
+import { $store } from "./store";
 
 // Setup logger
 const logLevel = Logger.DEBUG;
@@ -24,7 +24,7 @@ import App from "./App.vue";
 import "./App.scss";
 
 new Vue({
-  router,
-  store,
+  router: router,
+  store: $store,
   render: h => h(App),
 }).$mount("#app");
