@@ -10,8 +10,6 @@ const logLevel = Logger.DEBUG;
 Logger.useDefaults();
 Logger.setLevel(logLevel);
 
-Logger.info("Hello world");
-
 // Configure Vue
 Vue.config.productionTip = false;
 Vue.config.devtools = true;
