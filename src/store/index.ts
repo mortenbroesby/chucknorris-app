@@ -1,5 +1,7 @@
 import Vue from "vue";
 import * as Vuex from "vuex";
+import { UserCredentials } from "../interfaces";
+import { router, RouteName } from "../router";
 
 Vue.use(Vuex);
 
@@ -26,15 +28,24 @@ class TypedStore extends Vuex.Store<RootState> {
 }
 
 export interface RootState {
+   // Application
   applicationHasLoaded: boolean;
   spinnerVisible: boolean;
-  userIsAuthenticated: boolean;
+
+ // Authentication
+ userIsAuthenticated: boolean;
+ userCredentials: UserCredentials;
 }
 
 export const state: RootState = {
   applicationHasLoaded: false,
   spinnerVisible: false,
+
   userIsAuthenticated: false,
+  userCredentials: {
+    username: "",
+    password: ""
+  },
 };
 
 const mutations = {
@@ -46,6 +57,9 @@ const mutations = {
   },
   SET_USER_AUTHENTICATED(prevState: RootState, isAuthenticated: boolean): void {
     prevState.userIsAuthenticated = isAuthenticated;
+  },
+  SET_USER_CREDENTIALS(prevState: RootState, credentials: UserCredentials) {
+    prevState.userCredentials = credentials;
   },
 };
 
@@ -67,6 +81,26 @@ const actions = {
   },
   setUserAuthenticated({ commit }: Context, authenticationState: boolean): void {
     commit("SET_USER_AUTHENTICATED", authenticationState);
+  },
+  setUserCredentials({ commit }: Context, credentials?: UserCredentials): void {
+    if (credentials) {
+      commit("SET_USER_CREDENTIALS", credentials);
+    } else {
+      commit("SET_USER_CREDENTIALS", {
+        username: "",
+        password: "",
+      });
+    }
+  },
+  loginUser({ dispatch }: Context, credentials?: UserCredentials): void {
+    dispatch("setUserCredentials", credentials);
+    dispatch("setUserAuthenticated", true);
+    router.replace({ name: RouteName.STOREFRONT });
+  },
+  logoutUser({ dispatch }: Context): void {
+    dispatch("setUserCredentials", undefined);
+    dispatch("setUserAuthenticated", false);
+    router.replace({ name: RouteName.LOGIN });
   },
 };
 

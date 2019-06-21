@@ -1,6 +1,7 @@
 import Vue from "vue";
 import { Component } from "vue-property-decorator";
 import Logger from "js-logger";
+import { $store } from "../../store";
 
 import { getJokes } from "../../services/api.service";
 
@@ -30,5 +31,9 @@ export default class Storefront extends Vue {
     }).catch((error) => {
       Logger.error("getJokes error: ", error);
     });
+  }
+
+  logoutUser() {
+    $store.dispatch("logoutUser");
   }
 }

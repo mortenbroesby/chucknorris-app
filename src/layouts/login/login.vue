@@ -1,25 +1,33 @@
 <template>
   <div id="login">
-    <input
-      id="inputUsername"
-      v-model="username"
-      placeholder="Input username"
-    />
-    <input
-      id="inputPassword"
-      v-model="password"
-      placeholder="Input password"
-    />
+    <div class="inputs">
+      <input
+        id="inputUsername"
+        class="input"
+        type="username"
+        v-model="username"
+        placeholder="Input username"
+      />
+      <input
+        id="inputPassword"
+        class="input"
+        type="password"
+        v-model="password"
+        placeholder="Input password"
+      />
+    </div>
 
-    <button
-      id="clearFields"
-      @click="clearFields">
-      Clear fields
-    </button>
-    <button
-      id="submitLogin"
-      @click="submitLogin">
-      Login
-    </button>
+    <div class="buttons">
+      <button
+        id="clearFields"
+        @click="clearFields">
+        Clear fields
+      </button>
+      <button
+        id="submitLogin"
+        @click="submitLogin">
+        Login
+      </button>
+    </div>
   </div>
 </template>

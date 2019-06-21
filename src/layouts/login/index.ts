@@ -50,6 +50,7 @@ export default class Login extends Vue {
       password: this.password,
     }).then((credentials: UserCredentials) => {
       Logger.info("Store credentials: ", credentials);
+      $store.dispatch("loginUser", credentials);
     }).catch((error: string) => {
       Logger.error("Error logging in: ", error);
     });
