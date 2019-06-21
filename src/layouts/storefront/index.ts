@@ -19,7 +19,9 @@ export default class Storefront extends Vue {
   /*************************************************/
   mounted() {
     Logger.info("Storefront loaded");
+  }
 
+  fetchJokes() {
     getJokes(10).then((jokeCollection: JokeCollectionModel) => {
       jokeCollection.jokes.forEach((joke: JokeModel) => {
         Logger.info("jokeCollection - joke: ", joke);
