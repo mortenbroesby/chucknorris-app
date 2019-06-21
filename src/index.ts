@@ -1,6 +1,7 @@
 import Logger from "js-logger";
 
 import Vue from "vue";
+import { Component } from "vue-property-decorator";
 
 import { router } from "./router";
 import { $store } from "./store";
@@ -21,9 +22,18 @@ import App from "./App.vue";
 // Import styles
 import "./App.scss";
 
-new Vue({
-  router: router,
-  store: $store,
-  render: h => h(App),
-}).$mount("#app");
+/*************************************************/
+/* APPLICATION SETUP  */
+/*************************************************/
+function initialiseApplication() {
+  new Vue({
+    router: router,
+    store: $store,
+    render: h => h(App),
+  }).$mount("#app");
+}
 
+/*************************************************/
+/* APPLICATION INITIALIZATION  */
+/*************************************************/
+initialiseApplication();

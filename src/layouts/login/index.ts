@@ -1,8 +1,9 @@
 import Vue from "vue";
 import { Component } from "vue-property-decorator";
 
+import { RootState, $store } from "../../store";
+
 import template from "./login.vue";
-import { RootState, $store } from "@/store";
 
 @Component({
   mixins: [template],
