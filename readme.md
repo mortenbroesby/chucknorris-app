@@ -3,7 +3,8 @@
 This project is using parcel to serve files.
 
 Prerequisites:
-* parcel-bundler installed globally.
+
+- parcel-bundler installed globally.
 
 ```
 npm install -g parcel-bundler
