@@ -10,6 +10,8 @@ export interface ConfigInterface {
   api: {
     requestTimeout: number;
   };
+
+  [key: string]: any; // Permit untyped data from envConfig
 }
 
 let config: ConfigInterface = {

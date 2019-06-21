@@ -7,7 +7,7 @@ import { JokeCollectionModel } from "../models/jokeCollection.model";
 /* API SETUP */
 /*************************************************/
 const requestJokesApi: AxiosInstance = axios.create({
-  baseURL: `https://api.icndb.com`,
+  baseURL: `https://${config.apiDomainJokes}`,
   timeout: config.api.requestTimeout,
   headers: {
     "Content-Type": "application/json"
