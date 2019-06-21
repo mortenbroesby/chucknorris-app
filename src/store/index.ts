@@ -32,7 +32,7 @@ export interface RootState {
 
 export const state: RootState = {
   spinnerVisible: false,
-  userIsAuthenticated: false,
+  userIsAuthenticated: true,
 };
 
 const mutations = {
