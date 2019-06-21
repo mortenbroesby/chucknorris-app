@@ -41,7 +41,7 @@ function initialiseApplication() {
     /* LIFE CYCLE EVENTS */
     /*************************************************/
     mounted() {
-      Logger.info("Application initialised.");
+      this.initialiseApplication();
     }
 
     /*************************************************/
@@ -53,6 +53,22 @@ function initialiseApplication() {
 
     get spinnerVisible(): boolean {
       return this.store.spinnerVisible;
+    }
+
+    get applicationHasLoaded(): boolean {
+      return this.store.applicationHasLoaded;
+    }
+
+    /*************************************************/
+    /* METHODS */
+    /*************************************************/
+    initialiseApplication() {
+      $store.dispatch("setSpinner", true);
+
+      $store.dispatch("initialiseApplication").then(() => {
+        Logger.info("Application initialised.");
+        $store.dispatch("setSpinner", false);
+      });
     }
   }
 

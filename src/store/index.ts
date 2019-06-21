@@ -26,16 +26,21 @@ class TypedStore extends Vuex.Store<RootState> {
 }
 
 export interface RootState {
+  applicationHasLoaded: boolean;
   spinnerVisible: boolean;
   userIsAuthenticated: boolean;
 }
 
 export const state: RootState = {
+  applicationHasLoaded: false,
   spinnerVisible: false,
   userIsAuthenticated: true,
 };
 
 const mutations = {
+  SET_APPLICATION_INITIALISED(prevState: RootState, hasInitialised: boolean): void {
+    prevState.applicationHasLoaded = hasInitialised;
+  },
   SET_SPINNER_VISIBILITY(prevState: RootState, isVisible: boolean): void {
     prevState.spinnerVisible = isVisible;
   },
@@ -45,6 +50,18 @@ const mutations = {
 };
 
 const actions = {
+  initialiseApplication({ dispatch, commit }: Context): Promise<void> {
+    return new Promise((resolve) => {
+      // Load async data, etc.
+      setTimeout(() => {
+        dispatch("setApplicationInitialised", true);
+        resolve();
+      }, 1000);
+    });
+  },
+  setApplicationInitialised({ commit }: Context, hasInitialised: boolean) {
+    commit("SET_APPLICATION_INITIALISED", hasInitialised);
+  },
   setSpinner({ commit }: Context, loadingIndicatorState: boolean): void {
     commit("SET_SPINNER_VISIBILITY", loadingIndicatorState);
   },
