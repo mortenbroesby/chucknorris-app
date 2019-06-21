@@ -1,0 +1,19 @@
+{
+  "name": "assignment",
+  "version": "1.0.0",
+  "description": "Assignment project, with parcel used as build tool",
+  "author": "Morten Broesby-Olsen <mortenbroesby@gmail.com>",
+  "main": "index.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "vue",
+    "typescript",
+    "parcel"
+  ],
+  "license": "ISC",
+  "devDependencies": {
+    "typescript": "^3.5.2"
+  }
+}
