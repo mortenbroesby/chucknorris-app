@@ -4,6 +4,9 @@ import Logger from "js-logger";
 
 import { getJokes } from "../../services/api.service";
 
+import { JokeCollectionModel } from "../../models/jokeCollection.model";
+import { JokeModel } from "../../models/joke.model";
+
 import template from "./storefront.vue";
 
 @Component({
@@ -17,6 +20,12 @@ export default class Storefront extends Vue {
   mounted() {
     Logger.info("Storefront loaded");
 
-    getJokes(10);
+    getJokes(10).then((jokeCollection: JokeCollectionModel) => {
+      jokeCollection.jokes.forEach((joke: JokeModel) => {
+        Logger.info("jokeCollection - joke: ", joke);
+      });
+    }).catch((error) => {
+      Logger.error("getJokes error: ", error);
+    });
   }
 }

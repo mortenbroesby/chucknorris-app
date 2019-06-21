@@ -1,6 +1,8 @@
 import Logger from "js-logger";
 import axios, { AxiosInstance } from "axios";
 
+import { JokeCollectionModel } from "../models/jokeCollection.model";
+
 const requestTimeout = 15000;
 
 /*************************************************/
@@ -26,8 +28,7 @@ function getJokesRequest(jokeCount: number) {
 /*************************************************/
 export function getJokes(jokeCount: number = 10) {
   return getJokesRequest(jokeCount).then((response) => {
-    Logger.info("getJokesRequest response: ", response);
-    return response.data;
+    return new JokeCollectionModel(response.data);
   }).catch((error) => {
     return error;
   });
