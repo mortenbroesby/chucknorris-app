@@ -14,12 +14,14 @@ type JokesContext = ActionContext<JokesState, RootState>;
 export interface JokesState {
   jokeCollection: JokeCollectionModel;
   favorites: JokeCollectionModel;
+  cache: JokeCollectionModel;
   autoIntervalActive: boolean;
 }
 
 const state: () => JokesState = () => ({
   jokeCollection: new JokeCollectionModel(),
   favorites: new JokeCollectionModel(),
+  cache: new JokeCollectionModel(),
   autoIntervalActive: false,
 });
 
@@ -59,6 +61,9 @@ const mutations: MutationTree<JokesState> = {
     prevState.favorites = new JokeCollectionModel();
     setItem("userFavoriteJokes", prevState.favorites);
   },
+  [JokesMutations.SET_CACHE](prevState: JokesState, cacheCollection: JokeCollectionModel) {
+    prevState.cache = cacheCollection;
+  },
   [JokesMutations.SET_AUTO_INTERVAL_ACTIVE](prevState: JokesState, isActive: boolean) {
     prevState.autoIntervalActive = isActive;
 
@@ -76,13 +81,20 @@ const mutations: MutationTree<JokesState> = {
 type Actions = typeof actions;
 
 const actions = {
-  initialise({ commit }: JokesContext) {
-    commit(JokesMutations.SET_AUTO_INTERVAL_ACTIVE, false);
+  initialise({ dispatch, commit }: JokesContext) {
+    dispatch("refreshCache");
 
     const savedFavorites = getItem("userFavoriteJokes");
     if (savedFavorites) {
       commit(JokesMutations.SET_FAVORITES, savedFavorites);
     }
+  },
+  refreshCache({ commit }: JokesContext) {
+    getJokes(20).then((jokeCollection: JokeCollectionModel) => {
+      commit(JokesMutations.SET_CACHE, jokeCollection);
+    }).catch((error) => {
+      Logger.error("getJokes error: ", error);
+    });
   },
   getJokes({ commit }: JokesContext) {
     getJokes(10).then((jokeCollection: JokeCollectionModel) => {
