@@ -1,12 +1,8 @@
 <template>
   <div id="login" class="login">
-    <button v-on:click="isVisible = !isVisible" style="display: none;">
-      Toggle
-    </button>
-
     <div class="centerContent">
       <transition name="fadeLogin">
-        <div class="loginForm" v-show="isVisible">
+        <div class="loginForm">
           <div class="header">
             <h1 class="title">Login</h1>
           </div>

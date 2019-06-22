@@ -1,32 +1,6 @@
 .login {
   $max-width: 400px;
 
-  .fadeLogin-enter {
-    opacity: 0;
-  }
-
-  .fadeLogin-enter-active,
-  .fadeLogin-leave-active {
-    transition: 600ms all ease;
-  }
-
-  .fadeLogin-leave-to {
-    opacity: 0;
-  }
-
-  .fadeToast-enter {
-    opacity: 0;
-  }
-
-  .fadeToast-enter-active,
-  .fadeToast-leave-active {
-    transition: 330ms all ease;
-  }
-
-  .fadeToast-leave-to {
-    opacity: 0;
-  }
-
   .centerContent {
     position: absolute;
     width: 100vw;
