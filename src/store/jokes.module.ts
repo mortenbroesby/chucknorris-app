@@ -16,7 +16,7 @@ export interface JokesState {
 
 const state: () => JokesState = () => ({
   jokeCollection: new JokeCollectionModel(),
-  autoIntervalActive: false
+  autoIntervalActive: false,
 });
 
 export enum JokesMutations {
@@ -24,12 +24,23 @@ export enum JokesMutations {
   SET_AUTO_INTERVAL_ACTIVE = "SET_AUTO_INTERVAL_ACTIVE",
 }
 
+let autoIntervalActiveInterval = -1;
+
 const mutations: MutationTree<JokesState> = {
   [JokesMutations.SET_COLLECTION](prevState: JokesState, jokeCollection: JokeCollectionModel) {
     prevState.jokeCollection = jokeCollection;
   },
   [JokesMutations.SET_AUTO_INTERVAL_ACTIVE](prevState: JokesState, isActive: boolean) {
     prevState.autoIntervalActive = isActive;
+
+    if (isActive) {
+      window.clearInterval(autoIntervalActiveInterval);
+      autoIntervalActiveInterval = window.setInterval(() => {
+        // TODO: Add random joke to favorites until 10.
+      }, 5000);
+    } else {
+      window.clearInterval(autoIntervalActiveInterval);
+    }
   },
 };
 

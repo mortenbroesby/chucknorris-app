@@ -28,6 +28,10 @@ export default class Storefront extends mixins(StoreMixin) {
     Logger.info("Storefront loaded");
   }
 
+  beforeDestroy () {
+    $jokesModule.dispatch("setAutoIntervalActive", false);
+  }
+
   /*************************************************/
   /* COMPUTED'S */
   /*************************************************/
@@ -63,7 +67,6 @@ export default class Storefront extends mixins(StoreMixin) {
   }
 
   toggleAutoJokeInterval() {
-    Logger.info("toggleAutoJokeInterval");
     $jokesModule.dispatch("toggleAutoInterval");
   }
 
