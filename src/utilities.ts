@@ -137,7 +137,7 @@ export function stringContainsOnlyLetters(string: string) {
 }
 
 export function stringContainsAlphabetSequence(string: string) {
-  let validString: boolean = false;
+  let containsAlphabetSequence: boolean = false;
 
   const alphabet = "abcdefghijklmnopqrstuvwxyz";
   const explodedAlphabet = alphabet.split("");
@@ -149,25 +149,25 @@ export function stringContainsAlphabetSequence(string: string) {
     if (characterSequence.length === 3) {
       const stringIsSequence = string.includes(characterSequence);
       if (stringIsSequence) {
-        validString = true;
+        containsAlphabetSequence = true;
       }
     }
   });
 
-  return validString;
+  return containsAlphabetSequence;
 }
 
 export function stringContainsBlacklistedCharacters(string: string, blacklistedCharacters: string[]) {
-  let validString: boolean = true;
+  let containsBlacklist: boolean = false;
 
   blacklistedCharacters.forEach(character => {
-    const stringIsSequence = string.includes(character);
-    if (stringIsSequence) {
-      validString = false;
+    const stringIncludesBlacklist = string.includes(character);
+    if (stringIncludesBlacklist) {
+      containsBlacklist = true;
     }
   });
 
-  return validString;
+  return containsBlacklist;
 }
 
 export function stringContainsTwoOverlappingPairs(string: string) {
