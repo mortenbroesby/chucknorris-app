@@ -3,8 +3,7 @@ import { Component } from "vue-property-decorator";
 import { mixins } from "vue-class-component";
 import { $store } from "../../store";
 import StoreMixin from "../../mixins/store.mixin";
-
-import { getJokes } from "../../services/api.service";
+import { $jokesModule } from "../../store/jokes.module";
 
 import { JokeCollectionModel } from "../../models/jokeCollection.model";
 import { JokeModel } from "../../models/joke.model";
@@ -20,8 +19,6 @@ export default class Storefront extends mixins(StoreMixin) {
   /*************************************************/
   /* PROPERTIES */
   /*************************************************/
-  jokeCollection: JokeCollectionModel = new JokeCollectionModel();
-
   autoAddJokes: boolean = false;
 
   /*************************************************/
@@ -35,7 +32,7 @@ export default class Storefront extends mixins(StoreMixin) {
   /* COMPUTED'S */
   /*************************************************/
   get jokes(): JokeModel[] {
-    return this.jokeCollection.jokes || [];
+    return this.jokesState.jokeCollection.jokes || [];
   }
 
   get autoJokeButtonMessage() {
@@ -54,11 +51,7 @@ export default class Storefront extends mixins(StoreMixin) {
   /* Methods */
   /*************************************************/
   fetchJokes() {
-    getJokes(10).then((jokeCollection: JokeCollectionModel) => {
-      this.jokeCollection = jokeCollection;
-    }).catch((error) => {
-      Logger.error("getJokes error: ", error);
-    });
+    $jokesModule.dispatch("getJokes");
   }
 
   addToFavorites(joke: JokeModel) {

@@ -1,34 +1,41 @@
+import Logger from "js-logger";
 import { ActionContext, MutationTree } from "vuex";
 import { RootState } from "../store";
 import { createDispatcher, ModuleDispatcher } from "./utilities";
-import { JokeCollectionModel } from "../models/jokeCollection.model";
 
-export const jokesNamespace = "jokes";
+import { JokeCollectionModel } from "../models/jokeCollection.model";
+import { getJokes } from "../services/api.service";
+
+export const jokesNamespace = "jokeModule";
 type JokesContext = ActionContext<JokesState, RootState>;
 
 export interface JokesState {
-  jokes: JokeCollectionModel;
+  jokeCollection: JokeCollectionModel;
 }
 
 const state: () => JokesState = () => ({
-  jokes: new JokeCollectionModel()
+  jokeCollection: new JokeCollectionModel()
 });
 
 export enum JokesMutations {
-  SET_JOKES = "SET_JOKES",
+  SET_JOKE_COLLECTION = "SET_JOKE_COLLECTION",
 }
 
 const mutations: MutationTree<JokesState> = {
-  [JokesMutations.SET_JOKES](prevState: JokesState, jokeCollection: JokeCollectionModel) {
-    prevState.jokes = jokeCollection;
+  [JokesMutations.SET_JOKE_COLLECTION](prevState: JokesState, jokeCollection: JokeCollectionModel) {
+    prevState.jokeCollection = jokeCollection;
   },
 };
 
 type Actions = typeof actions;
 
 const actions = {
-  setJokes({ commit }: JokesContext, jokeCollection: number) {
-    commit(JokesMutations.SET_JOKES, jokeCollection);
+  getJokes({ commit }: JokesContext, jokeCollection: number) {
+    getJokes(10).then((jokeCollection: JokeCollectionModel) => {
+      commit(JokesMutations.SET_JOKE_COLLECTION, jokeCollection);
+    }).catch((error) => {
+      Logger.error("getJokes error: ", error);
+    });
   },
 };
 
