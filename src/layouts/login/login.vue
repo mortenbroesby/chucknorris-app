@@ -43,8 +43,13 @@
             </button>
           </div>
 
-          <div class="toast" v-show="toastIsVisible">
-            {{ toastMessageToDisplay }}
+          <div class="toastContainer">
+            <transition name="fadeToast">
+              <div class="toast" v-show="toastMessageVisible">
+                <p class="toast--title">Note:</p>
+                <p class="toast--message">{{ toastMessage }}</p>
+              </div>
+            </transition>
           </div>
         </div>
       </transition>

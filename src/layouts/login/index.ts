@@ -1,10 +1,10 @@
 import Logger from "js-logger";
 import { mixins } from "vue-class-component";
-import { Component } from "vue-property-decorator";
+import { Component, Watch } from "vue-property-decorator";
 import StoreMixin from "../../mixins/store.mixin";
 import { stringIsEmpty } from "../../utilities";
 
-import { RootState, $store } from "../../store";
+import { $store } from "../../store";
 
 import LoginValidatorService from "../../services/loginValidator.service";
 import { UserCredentials, InputValidationMessage } from "../../interfaces";
@@ -24,7 +24,7 @@ export default class Login extends mixins(StoreMixin)  {
   password: string = "";
 
   toastMessage: string = "";
-  toastMessageClearTimeout: any = -1;
+  toastMessageVisible: boolean = false;
 
   loginValidator: LoginValidatorService = new LoginValidatorService();
 
@@ -37,12 +37,17 @@ export default class Login extends mixins(StoreMixin)  {
     return this.rootState.userIsAuthenticated;
   }
 
-  get toastIsVisible(): boolean {
-    return !stringIsEmpty(this.toastMessage);
-  }
-
   get toastMessageToDisplay() {
     return `Note: ${this.toastMessage}`;
+  }
+
+  /*************************************************/
+  /* WATCHERS */
+  /*************************************************/
+  @Watch("username")
+  @Watch("password")
+  onInputChange() {
+    this.hideToastMessage();
   }
 
   /*************************************************/
@@ -54,10 +59,6 @@ export default class Login extends mixins(StoreMixin)  {
     }, 500);
   }
 
-  beforeDestroy () {
-    window.clearTimeout(this.toastMessageClearTimeout);
-  }
-
   /*************************************************/
   /* METHODS */
   /*************************************************/
@@ -67,14 +68,14 @@ export default class Login extends mixins(StoreMixin)  {
     this.password = "";
   }
 
-  showToastMessage(toastMessage: string) {
+  addToastMessage(toastMessage: string) {
+    Logger.info("addToastMessage: ", toastMessage);
+    this.toastMessageVisible = true;
     this.toastMessage = toastMessage;
+  }
 
-    window.clearTimeout(this.toastMessageClearTimeout);
-
-    this.toastMessageClearTimeout = setTimeout(() => {
-      this.toastMessage = "";
-    }, 1500);
+  hideToastMessage() {
+    this.toastMessageVisible = false;
   }
 
   submitLogin() {
@@ -91,7 +92,7 @@ export default class Login extends mixins(StoreMixin)  {
       }, 1000);
     }).catch((rejection: InputValidationMessage) => {
       Logger.error("Error logging in: ", rejection);
-      this.showToastMessage(rejection.message || "");
+      this.addToastMessage(rejection.message || "");
     });
   }
 }
