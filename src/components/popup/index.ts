@@ -1,5 +1,6 @@
 import Vue from "vue";
 import { Component, Prop } from "vue-property-decorator";
+import { $store } from "../../store";
 
 import template from "./popup.vue";
 import "./popup.scss";
@@ -14,4 +15,11 @@ export default class Popup extends Vue {
   /*************************************************/
   @Prop({ default: "default" })
   type: string;
+
+  /*************************************************/
+  /* METHODS */
+  /*************************************************/
+  closePopup() {
+    $store.dispatch("setPopupVisible", false);
+  }
 }

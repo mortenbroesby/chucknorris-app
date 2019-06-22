@@ -67,6 +67,10 @@ function initialiseApplication() {
       return this.store.userIsAuthenticated;
     }
 
+    get popupIsVisible(): boolean {
+      return this.store.popupVisible;
+    }
+
     /*************************************************/
     /* METHODS */
     /*************************************************/

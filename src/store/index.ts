@@ -37,12 +37,18 @@ export interface RootState {
  // Authentication
  userIsAuthenticated: boolean;
  userCredentials: UserCredentials;
+
+ // Popup
+ popupVisible: boolean;
 }
 
 export const state: RootState = {
   // Application
   applicationHasLoaded: false,
   spinnerVisible: false,
+
+  // Popup
+  popupVisible: false,
 
  // Authentication
   userIsAuthenticated: false,
@@ -59,6 +65,9 @@ const mutations = {
   SET_SPINNER_VISIBILITY(prevState: RootState, isVisible: boolean): void {
     prevState.spinnerVisible = isVisible;
   },
+  SET_POPUP_VISIBILITY(prevState: RootState, isVisible: boolean) {
+    prevState.popupVisible = isVisible;
+  },
   SET_USER_AUTHENTICATED(prevState: RootState, isAuthenticated: boolean): void {
     prevState.userIsAuthenticated = isAuthenticated;
   },
@@ -73,6 +82,8 @@ const actions = {
       const savedCredentials = getItem("userCredentials");
       if (savedCredentials) {
         dispatch("loginUser", savedCredentials);
+      } else {
+        dispatch("setPopupVisible", true);
       }
 
       // Load async data, etc.
@@ -85,8 +96,11 @@ const actions = {
   setApplicationInitialised({ commit }: Context, hasInitialised: boolean) {
     commit("SET_APPLICATION_INITIALISED", hasInitialised);
   },
-  setSpinner({ commit }: Context, loadingIndicatorState: boolean): void {
-    commit("SET_SPINNER_VISIBILITY", loadingIndicatorState);
+  setSpinner({ commit }: Context, isVisible: boolean): void {
+    commit("SET_SPINNER_VISIBILITY", isVisible);
+  },
+  setPopupVisible({ commit }: Context, isVisible: boolean): void {
+    commit("SET_POPUP_VISIBILITY", isVisible);
   },
   setUserAuthenticated({ commit }: Context, authenticationState: boolean): void {
     commit("SET_USER_AUTHENTICATED", authenticationState);
