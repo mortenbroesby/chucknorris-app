@@ -40,9 +40,11 @@ export interface RootState {
 }
 
 export const state: RootState = {
+  // Application
   applicationHasLoaded: false,
   spinnerVisible: false,
 
+ // Authentication
   userIsAuthenticated: false,
   userCredentials: {
     username: "",
