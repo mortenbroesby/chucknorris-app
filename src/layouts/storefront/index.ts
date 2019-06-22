@@ -25,7 +25,7 @@ export default class Storefront extends mixins(StoreMixin) {
   /* LIFE CYCLE */
   /*************************************************/
   mounted() {
-    Logger.info("Storefront loaded");
+    $jokesModule.dispatch("initialise");
   }
 
   beforeDestroy () {

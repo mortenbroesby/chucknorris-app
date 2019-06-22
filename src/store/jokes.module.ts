@@ -11,11 +11,13 @@ type JokesContext = ActionContext<JokesState, RootState>;
 
 export interface JokesState {
   jokeCollection: JokeCollectionModel;
+  favorites: JokeCollectionModel;
   autoIntervalActive: boolean;
 }
 
 const state: () => JokesState = () => ({
   jokeCollection: new JokeCollectionModel(),
+  favorites: new JokeCollectionModel(),
   autoIntervalActive: false,
 });
 
@@ -47,6 +49,9 @@ const mutations: MutationTree<JokesState> = {
 type Actions = typeof actions;
 
 const actions = {
+  initialise({ commit }: JokesContext) {
+    commit(JokesMutations.SET_AUTO_INTERVAL_ACTIVE, false);
+  },
   getJokes({ commit }: JokesContext, jokeCollection: number) {
     getJokes(10).then((jokeCollection: JokeCollectionModel) => {
       commit(JokesMutations.SET_COLLECTION, jokeCollection);
