@@ -110,6 +110,7 @@ const actions = {
     dispatch("setUserCredentials", undefined);
     dispatch("setUserAuthenticated", false);
     $jokesModule.dispatch("resetFavorites");
+    $jokesModule.dispatch("resetJokesCollection");
     router.replace({ name: RouteName.LOGIN });
   },
 };

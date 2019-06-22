@@ -32,6 +32,7 @@ const state: JokesState = ({
 
 export enum JokesMutations {
   SET_COLLECTION = "SET_COLLECTION",
+  RESET_COLLECTION = "RESET_COLLECTION",
   ADD_TO_COLLECTION = "ADD_TO_COLLECTION",
   ADD_TO_FAVORITES = "ADD_TO_FAVORITES",
   REMOVE_FROM_FAVORITES = "REMOVE_FROM_FAVORITES",
@@ -46,6 +47,9 @@ let autoIntervalActiveInterval = -1;
 const mutations: MutationTree<JokesState> = {
   [JokesMutations.SET_COLLECTION](prevState: JokesState, jokeCollection: JokeCollectionModel) {
     prevState.jokeCollection = jokeCollection;
+  },
+  [JokesMutations.RESET_COLLECTION](prevState: JokesState) {
+    prevState.jokeCollection = new JokeCollectionModel();
   },
   [JokesMutations.ADD_TO_COLLECTION](prevState: JokesState, joke: JokeModel) {
     const jokeExists = prevState.favorites.jokes.find((collectionJoke: JokeModel) => collectionJoke.id == joke.id);
@@ -150,6 +154,9 @@ const actions = {
         });
       }
     });
+  },
+  resetJokesCollection({ commit }: JokesContext) {
+    commit(JokesMutations.RESET_COLLECTION);
   },
   addToFavorites({ commit, state }: JokesContext, joke: JokeModel) {
     const favoriteExists = state.favorites.jokes.find((favorite: JokeModel) => favorite.id == joke.id);
