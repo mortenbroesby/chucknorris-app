@@ -67,6 +67,10 @@ export default class Storefront extends mixins(StoreMixin) {
     return this.favoriteJokes.length > 0;
   }
 
+  get noJokesVisible() {
+    return (!this.jokesVisible && !this.favoritesVisible);
+  }
+
   /*************************************************/
   /* Methods */
   /*************************************************/

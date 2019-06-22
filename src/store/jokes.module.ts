@@ -54,6 +54,7 @@ const mutations: MutationTree<JokesState> = {
     const favoriteExists = prevState.favorites.jokes.find((favorite: JokeModel) => favorite.id == joke.id);
     if (!favoriteExists && prevState.favorites.jokes.length < 10) {
       prevState.favorites.jokes.push(joke);
+      prevState.jokeCollection.jokes = prevState.jokeCollection.jokes.filter(collectionItem => collectionItem.id !== joke.id);
       setItem("userFavoriteJokes", prevState.favorites);
     }
   },

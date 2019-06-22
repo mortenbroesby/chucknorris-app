@@ -55,9 +55,24 @@
     }
   }
 
+  .helperMessage {
+    .message {
+      padding: 0;
+      margin: 0;
+      text-align: center;
+    }
+  }
+
   .jokes-container {
     margin-top: 10px;
     margin-bottom: 60px;
+
+    .title {
+      padding: 0;
+      margin: 0;
+      margin-bottom: 20px;
+      text-align: center;
+    }
 
     .joke--item {
       display: flex;
