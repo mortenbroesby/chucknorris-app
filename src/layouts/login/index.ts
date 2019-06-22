@@ -35,8 +35,6 @@ export default class Login extends mixins(StoreMixin)  {
 
   loginValidator: LoginValidatorService = new LoginValidatorService();
 
-  isVisible: boolean = false;
-
   /*************************************************/
   /* COMPUTED'S */
   /*************************************************/
@@ -58,9 +56,11 @@ export default class Login extends mixins(StoreMixin)  {
   /* LIFE CYCLE */
   /*************************************************/
   mounted() {
-    setTimeout(() => {
-      this.isVisible = true;
-    }, 500);
+    document.addEventListener("keydown", this.onKeyDown);
+  }
+
+  beforeDestroy() {
+    document.removeEventListener("keydown", this.onKeyDown);
   }
 
   /*************************************************/
@@ -106,7 +106,6 @@ export default class Login extends mixins(StoreMixin)  {
       password: this.password,
     }).then((credentials: UserCredentials) => {
       Logger.info("Store credentials: ", credentials);
-      this.isVisible = false;
       setTimeout(() => {
         $store.dispatch("loginUser", credentials);
       }, 1000);
@@ -114,5 +113,13 @@ export default class Login extends mixins(StoreMixin)  {
       this.setInputFieldHighlight(rejection.inputField);
       this.addToastMessage(rejection.validation.message || "");
     });
+  }
+
+  onKeyDown(event: KeyboardEvent) {
+    const isEscape = event.key === "Enter" || event.which == 13;
+
+    if (isEscape) {
+      this.submitLogin();
+    }
   }
 }
