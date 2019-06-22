@@ -50,8 +50,11 @@ const mutations: MutationTree<JokesState> = {
     }
   },
   [JokesMutations.ADD_TO_FAVORITES](prevState: JokesState, joke: JokeModel) {
-    prevState.favorites.jokes.push(joke);
-    setItem("userFavoriteJokes", prevState.favorites);
+    const favoriteExists = prevState.favorites.jokes.find((favorite: JokeModel) => favorite.id == joke.id);
+    if (!favoriteExists) {
+      prevState.favorites.jokes.push(joke);
+      setItem("userFavoriteJokes", prevState.favorites);
+    }
   },
   [JokesMutations.SET_FAVORITES](prevState: JokesState, jokeCollection: JokeCollectionModel) {
     prevState.favorites = jokeCollection;
