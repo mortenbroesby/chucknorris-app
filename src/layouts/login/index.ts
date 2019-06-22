@@ -9,6 +9,7 @@ import { stringIsEmpty } from "../../utilities";
 import { RootState, $store } from "../../store";
 
 import template from "./login.vue";
+import "./login.scss";
 
 @Component({
   mixins: [template],
