@@ -26,9 +26,9 @@ export default class LoginValidatorService {
   /*************************************************/
   checkIfStringIsEmpty(value: string): InputValidationMessage {
     const isEmpty = stringIsEmpty(value);
-    const errorMessage = locale.validationErrors.isEmptyPassword;
 
     if (isEmpty) {
+      const errorMessage = locale.validationErrors.isEmptyPassword;
       return this.genericErrorMessage(errorMessage);
     }
 
@@ -37,9 +37,9 @@ export default class LoginValidatorService {
 
   checkIfStringContainsAlphabetSequence(value: string): InputValidationMessage {
     const containsAlphabetSequence = stringContainsAlphabetSequence(value);
-    const errorMessage = "Passwords must include one increasing straight of at least three letters, like abc, cde, fgh,and so on, up to xyz. They cannot skip letters; acd doesn't count.";
 
     if (!containsAlphabetSequence) {
+      const errorMessage = locale.validationErrors.containsAlphabetSequence;
       return this.genericErrorMessage(errorMessage);
     }
 
@@ -49,9 +49,9 @@ export default class LoginValidatorService {
   checkIfStringContainsBlacklistedCharacters(value: string): InputValidationMessage {
     const blacklistedCharacters = ["i", "O", "l"];
     const containsBlacklistedCharacters = stringContainsBlacklistedCharacters(value, blacklistedCharacters);
-    const errorMessage = "Passwords may not contain the letters i, O, or l, as these letters can be mistaken for other characters and are therefore confusing.";
 
     if (containsBlacklistedCharacters) {
+      const errorMessage = locale.validationErrors.containsBlacklistedCharacters;
       return this.genericErrorMessage(errorMessage);
     }
 
@@ -60,9 +60,9 @@ export default class LoginValidatorService {
 
   checkIfStringContainsTwoOverlappingPairs(value: string): InputValidationMessage {
     const containsOverlappingPairs = stringContainsTwoOverlappingPairs(value);
-    const errorMessage = "Passwords must contain at least two non-overlapping pairs of letters, like aa, bb, or cc.";
 
     if (!containsOverlappingPairs) {
+      const errorMessage = locale.validationErrors.containsOverlappingPairs;
       return this.genericErrorMessage(errorMessage);
     }
 
@@ -71,10 +71,10 @@ export default class LoginValidatorService {
 
   checkIfStringIsAboveMaxLength(value: string): InputValidationMessage {
     const maxLength = 32;
-    const isAboveMax = value.length > maxLength;
-    const errorMessage = "Passwords cannot be longer than 32 characters.";
+    const isAboveMaxLength = value.length > maxLength;
 
-    if (isAboveMax) {
+    if (isAboveMaxLength) {
+      const errorMessage = locale.validationErrors.isAboveMaxLength;
       return this.genericErrorMessage(errorMessage);
     }
 
@@ -83,9 +83,9 @@ export default class LoginValidatorService {
 
   checkIfStringHasUpperCase(value: string): InputValidationMessage {
     const hasUppercase = stringHasUpperCase(value);
-    const errorMessage = "Passwords can only contain lower case characters.";
 
     if (hasUppercase) {
+      const errorMessage = locale.validationErrors.hasUppercase;
       return this.genericErrorMessage(errorMessage);
     }
 
@@ -94,9 +94,9 @@ export default class LoginValidatorService {
 
   checkIfStringContainsOnlyLetters(value: string): InputValidationMessage {
     const containsOnlyLetters = stringContainsOnlyLetters(value);
-    const errorMessage = "Passwords can only contain alphabetic characters.";
 
     if (!containsOnlyLetters) {
+      const errorMessage = locale.validationErrors.containsOnlyLetters;
       return this.genericErrorMessage(errorMessage);
     }
 
@@ -108,10 +108,8 @@ export default class LoginValidatorService {
   /*************************************************/
   checkUsername(value: string): InputValidationMessage {
     if (stringIsEmpty(value)) {
-      return {
-        isValid: false,
-        message: "Usernames cannot be empty."
-      };
+      const errorMessage = locale.validationErrors.isEmptyUsername;
+      return this.genericErrorMessage(errorMessage);
     }
 
     return this.genericSuccessMessage();
