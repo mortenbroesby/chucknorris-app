@@ -19,10 +19,18 @@
 
     opacity: 1;
     transition: opacity 0.3s;
+    -webkit-filter: blur(0px);
 
     &.blur {
-      opacity: 0.05;
+      opacity: 0.15;
       transition: opacity 0.3s;
+      -webkit-filter: blur(15px);
+      -webkit-animation: image_blur 0.5s;
+    }
+
+    @-webkit-keyframes image_blur {
+      0% { -webkit-filter: blur(0px);}
+      100% { -webkit-filter: blur(15px);}
     }
   }
 
