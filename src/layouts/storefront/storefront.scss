@@ -34,6 +34,27 @@
     }
   }
 
+  .logoutUserContainer {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 10px;
+
+    .button {
+      background: none;
+      outline: 1px solid rgba(0, 0, 0, 0.4);
+      font-size: 14px;
+      padding: 10px 14px;
+      color: rgba(0, 0, 0, 0.5);
+
+      &:hover,
+      &:focus {
+        background: #0053ba;
+        color: #FFF;
+      }
+    }
+  }
+
   .centerContent {
     display: flex;
     align-items: center;
@@ -55,8 +76,16 @@
     .title {
       padding: 0;
       margin: 0;
-      margin-bottom: 20px;
       text-align: center;
+      font-weight: 300;
+      font-size: 30px;
+      line-height: 1.2;
+
+      &--bold {
+        font-weight: 800;
+        margin-bottom: 20px;
+        font-size: 36px;
+      }
     }
 
     .actions {
@@ -64,6 +93,7 @@
       display: flex;
       flex-flow: row wrap;
       width: 100%;
+      padding-bottom: 60px;
     }
 
     .buttonContainer {
@@ -77,10 +107,44 @@
         flex: 1 100%;
         margin-left: 5px;
 
+        background: black;
+        outline: 1px solid rgba(0, 0, 0, 0.4);
+        font-size: 14px;
+        padding: 10px 14px;
+        color: white;
+
+        &--toggleAutoJokeInterval {
+          background: none;
+          color: black;
+        }
+
+        & > * {
+          vertical-align: middle;
+          line-height: 0.5;
+          color: black;
+          margin-right: 10px;
+        }
+
+        &:hover,
+        &:focus {
+          background: color('dark-blue');
+          color: #FFF;
+
+          & > * {
+            color: #FFF;
+          }
+        }
+
         &:not(:last-child) {
           margin-left: 0px;
           margin-right: 5px;
         }
+      }
+
+      .buttonLarge {
+        flex: 1 50%;
+        max-width: 50%;
+        margin: 0 auto;
       }
     }
   }
@@ -101,7 +165,7 @@
       padding: 0;
       margin: 0;
       margin-bottom: 20px;
-      text-align: center;
+      text-transform: uppercase;
     }
 
     .joke--item {
@@ -127,9 +191,23 @@
       }
 
       .joke--button {
+        border: none;
+        outline: none;
+        background: none;
+
         width: 40px;
         height: 40px;
         margin-left: 30px;
+        display: flex;
+        flex-flow: row wrap;
+        align-items: center;
+        justify-content: center;
+
+        & > * {
+          vertical-align: middle;
+          line-height: 0.5;
+          color: black;
+        }
       }
     }
   }
@@ -142,7 +220,7 @@
       padding: 0;
       margin: 0;
       margin-bottom: 20px;
-      text-align: center;
+      text-transform: uppercase;
     }
 
     .favoriteJoke--item {
@@ -168,10 +246,28 @@
       }
 
       .favoriteJoke--button {
+        border: none;
+        outline: none;
+        background: none;
+
         width: 40px;
         height: 40px;
         margin-left: 30px;
+        display: flex;
+        flex-flow: row wrap;
+        align-items: center;
+        justify-content: center;
+
+        & > * {
+          vertical-align: middle;
+          line-height: 0.5;
+          color: black;
+        }
       }
     }
+  }
+
+  .body {
+    margin-top: 100px;
   }
 }

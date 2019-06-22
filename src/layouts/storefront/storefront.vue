@@ -2,12 +2,23 @@
   <div id="storefront" class="storefront">
     <div class="chuckNorris" :class="{ blur: !noJokesVisible }"></div>
 
+    <div class="logoutUserContainer">
+      <button
+        id="logoutUser"
+        class="button button--logoutUser"
+        @click="logoutUser">
+        Logout
+      </button>
+    </div>
+
     <div class="centerContent">
       <div class="contentContainer">
         <div class="header">
-          <h1 class="title">Daily dose of Chuck Norris jokes</h1>
+          <h1 class="title">Daily dose of</h1>
+          <h1 class="title title--bold">Chuck Norris</h1>
+
           <div class="actions">
-            <div class="buttonContainer">
+            <div class="buttonContainer" v-if="jokesVisible">
               <button
                 id="fetchJokes"
                 class="button button--fetchJokes"
@@ -15,28 +26,27 @@
                 {{ fetchJokesButtonMessage }}
               </button>
               <button
+                v-if="!noJokesVisible"
                 id="toggleAutoJokeInterval"
                 class="button button--toggleAutoJokeInterval"
                 @click="toggleAutoJokeInterval">
-                {{ autoJokeButtonMessage }}
+                <i class="material-icons" v-if="!autoIntervalActive">av_timer</i> {{ autoJokeButtonMessage }}
               </button>
+            </div>
+            <div class="buttonContainer" v-else>
               <button
-                id="logoutUser"
-                class="button button--logoutUser"
-                @click="logoutUser">
-                Logout
+                id="fetchJokes"
+                class="buttonLarge buttonLarge--fetchJokes"
+                @click="fetchJokes">
+                {{ fetchJokesButtonMessage }}
               </button>
             </div>
           </div>
         </div>
 
         <div class="body">
-          <div class="helperMessage" v-if="noJokesVisible">
-            <p class="message">Press the button above named ''Get Chuck Norris jokes'' to retrieve some jokes!</p>
-          </div>
-
           <div class="favoriteJokes-container" v-if="favoritesVisible">
-            <h2 class="title">Your Favorite Jokes</h2>
+            <h5 class="title">My favorites</h5>
             <div class="favoriteJoke--item"
               v-for="(joke, index) in favoriteJokes"
               :key="index">
@@ -50,7 +60,7 @@
           </div>
 
           <div class="jokes-container" v-if="jokesVisible">
-            <h2 class="title">Random Jokes</h2>
+            <h5 class="title">Random Jokes</h5>
             <div class="joke--item"
               v-for="(joke, index) in jokes"
               :key="index">
