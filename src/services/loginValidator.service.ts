@@ -9,6 +9,7 @@ import {
   stringIsEmpty,
   stringHasUpperCase,
   stringContainsOnlyLetters,
+  stringContainsAlphabetSequence,
 } from "../utilities";
 
 export default class LoginValidatorService {
@@ -43,8 +44,8 @@ export default class LoginValidatorService {
     };
   }
 
+
   checkPassword(value: string): InputValidationMessage {
-    // Passwords cannot be empty.
     if (stringIsEmpty(value)) {
       Logger.info("Passwords cannot be empty.");
       return {
@@ -53,7 +54,14 @@ export default class LoginValidatorService {
       };
     }
 
-    // Passwords cannot be longer than 32 characters.
+    if (!stringContainsAlphabetSequence(value)) {
+      Logger.info("Passwords must include one increasing straight of at least three letters, like abc, cde, fgh,and so on, up to xyz. They cannot skip letters; acd doesn't count.");
+      return {
+        isValid: false,
+        message: "Passwords must include one increasing straight of at least three letters, like abc, cde, fgh,and so on, up to xyz. They cannot skip letters; acd doesn't count."
+      };
+    }
+
     if (value.length > 32) {
       Logger.info("Passwords cannot be longer than 32 characters.");
       return {
@@ -62,7 +70,6 @@ export default class LoginValidatorService {
       };
     }
 
-    // Passwords can only contain lower case alphabetic characters.
     if (stringHasUpperCase(value)) {
       Logger.info("Passwords can only contain lower case characters.");
       return {

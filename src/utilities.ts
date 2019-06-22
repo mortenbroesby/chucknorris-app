@@ -135,3 +135,24 @@ export function stringHasNumber(string: string) {
 export function stringContainsOnlyLetters(string: string) {
   return /^[a-zA-Z]+$/.test(string);
 }
+
+export function stringContainsAlphabetSequence(string: string) {
+  let validString: boolean = false;
+
+  const alphabet = "abcdefghijklmnopqrstuvwxyz";
+  const explodedAlphabet = alphabet.split("");
+
+  explodedAlphabet.forEach(character => {
+    const characterIndex = alphabet.indexOf(character);
+    const characterSequence = alphabet.substring(characterIndex, characterIndex + 3);
+
+    if (characterSequence.length === 3) {
+      const stringIsSequence = string.includes(characterSequence);
+      if (stringIsSequence) {
+        validString = true;
+      }
+    }
+  });
+
+  return validString;
+}
