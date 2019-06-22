@@ -2,8 +2,16 @@
   <div id="storefront" class="storefront">
     <div class="chuckNorris" :class="{ blur: !noJokesVisible }"></div>
 
-    <div class="logoutUserContainer" v-if="userIsAuthenticated">
+    <div class="logoutUserContainer">
       <button
+        v-if="!userIsAuthenticated"
+        id="showLogin"
+        class="button button--showLogin"
+        @click="showLogin">
+        Login
+      </button>
+      <button
+        v-else
         id="logoutUser"
         class="button button--logoutUser"
         @click="logoutUser">
@@ -30,7 +38,7 @@
                 id="toggleAutoJokeInterval"
                 class="button button--toggleAutoJokeInterval"
                 @click="toggleAutoJokeInterval">
-                <i class="material-icons" v-if="!autoIntervalActive">av_timer</i> {{ autoJokeButtonMessage }}
+                <i class="material-icons">{{ autoIntervalActive ? 'cancel' : 'av_timer' }}</i> {{ autoJokeButtonMessage }}
               </button>
             </div>
             <div class="buttonContainer" v-else>

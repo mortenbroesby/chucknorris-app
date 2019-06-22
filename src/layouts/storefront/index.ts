@@ -99,6 +99,10 @@ export default class Storefront extends mixins(StoreMixin) {
     $jokesModule.dispatch("toggleAutoInterval");
   }
 
+  showLogin() {
+    $store.dispatch("setPopupVisible", true);
+  }
+
   logoutUser() {
     $store.dispatch("logoutUser");
   }
