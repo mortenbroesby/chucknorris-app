@@ -68,8 +68,10 @@ const mutations: MutationTree<JokesState> = {
     }
   },
   [JokesMutations.REMOVE_FROM_FAVORITES](prevState: JokesState, joke: JokeModel) {
-    prevState.favorites.jokes = prevState.favorites.jokes.filter(favorite => favorite.id !== joke.id);
-    setItem("userFavoriteJokes", prevState.favorites);
+    if (joke) {
+      prevState.favorites.jokes = prevState.favorites.jokes.filter(favorite => favorite.id !== joke.id);
+      setItem("userFavoriteJokes", prevState.favorites);
+    }
   },
   [JokesMutations.SET_FAVORITES](prevState: JokesState, jokeCollection: JokeCollectionModel) {
     prevState.favorites = jokeCollection;
