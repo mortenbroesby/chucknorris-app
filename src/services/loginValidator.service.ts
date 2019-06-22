@@ -173,13 +173,6 @@ export default class LoginValidatorService {
       return validationContainsOnlyLetters;
     }
 
-    if (!stringContainsOnlyLetters(value)) {
-      return {
-        isValid: false,
-        message: "Passwords can only contain alphabetic characters."
-      };
-    }
-
     return this.genericSuccessMessage();
   }
 
