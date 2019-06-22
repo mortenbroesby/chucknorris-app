@@ -61,7 +61,6 @@ export default class Login extends mixins(StoreMixin)  {
   /* METHODS */
   /*************************************************/
   clearFields() {
-    Logger.info("clearFields");
     this.username = "";
     this.password = "";
   }
@@ -75,7 +74,6 @@ export default class Login extends mixins(StoreMixin)  {
   }
 
   addToastMessage(toastMessage: string) {
-    Logger.info("addToastMessage: ", toastMessage);
     this.toastMessageVisible = true;
     this.toastMessage = toastMessage;
   }
@@ -89,8 +87,6 @@ export default class Login extends mixins(StoreMixin)  {
   }
 
   submitLogin() {
-    Logger.info("submitLogin");
-
     this.loginValidator.checkCredentials({
       username: this.username,
       password: this.password,
@@ -101,7 +97,6 @@ export default class Login extends mixins(StoreMixin)  {
         $store.dispatch("loginUser", credentials);
       }, 1000);
     }).catch((rejection: ErrorToastMessage) => {
-      Logger.error("Error logging in: ", rejection);
       this.setInputFieldHighlight(rejection.inputField);
       this.addToastMessage(rejection.validation.message || "");
     });
