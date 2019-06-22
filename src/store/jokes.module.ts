@@ -32,6 +32,7 @@ const state: () => JokesState = () => ({
 
 export enum JokesMutations {
   SET_COLLECTION = "SET_COLLECTION",
+  ADD_TO_COLLECTION = "ADD_TO_COLLECTION",
   ADD_TO_FAVORITES = "ADD_TO_FAVORITES",
   REMOVE_FROM_FAVORITES = "REMOVE_FROM_FAVORITES",
   SET_FAVORITES = "SET_FAVORITES",
@@ -45,6 +46,12 @@ let autoIntervalActiveInterval = -1;
 const mutations: MutationTree<JokesState> = {
   [JokesMutations.SET_COLLECTION](prevState: JokesState, jokeCollection: JokeCollectionModel) {
     prevState.jokeCollection = jokeCollection;
+  },
+  [JokesMutations.ADD_TO_COLLECTION](prevState: JokesState, joke: JokeModel) {
+    const jokeExists = prevState.favorites.jokes.find((collectionJoke: JokeModel) => collectionJoke.id == joke.id);
+    if (!jokeExists) {
+      prevState.jokeCollection.jokes.push(joke);
+    }
   },
   [JokesMutations.ADD_TO_FAVORITES](prevState: JokesState, joke: JokeModel) {
     const favoriteExists = prevState.favorites.jokes.find((favorite: JokeModel) => favorite.id == joke.id);
@@ -103,10 +110,10 @@ const actions = {
       Logger.error("getJokes error: ", error);
     });
   },
-  getJokes({ dispatch, commit, state }: JokesContext) {
+  getFromCache({ dispatch, commit, state }: JokesContext, jokeCount: number): JokeCollectionModel {
     // Grab jokes from cache
     const slicedCollectionFromCache: JokeCollectionModel = {
-      jokes: state.cache.jokes.slice(0, COUNT_JOKES_TO_FETCH_TO_STOREFRONT)
+      jokes: state.cache.jokes.slice(0, jokeCount)
     };
 
     // Filter out jokes taken from cache
@@ -115,24 +122,39 @@ const actions = {
     });
 
     // Store cached jokes in collection
-    if (slicedCollectionFromCache.jokes.length > 0) {
-      commit(JokesMutations.SET_COLLECTION, slicedCollectionFromCache);
+    if (state.cache.jokes.length < COUNT_JOKES_TO_FETCH_TO_STOREFRONT) {
+      dispatch("refreshCache");
+    }
 
-      // Fetch if cache is low
-      if (state.cache.jokes.length < COUNT_JOKES_TO_FETCH_TO_STOREFRONT) {
-        dispatch("refreshCache");
+    return slicedCollectionFromCache;
+  },
+  getJokes({ dispatch, commit, state }: JokesContext) {
+    dispatch("getFromCache", COUNT_JOKES_TO_FETCH_TO_STOREFRONT).then((cache: JokeCollectionModel) => {
+      // Store cached jokes in collection
+      if (cache.jokes.length > 0) {
+        commit(JokesMutations.SET_COLLECTION, cache);
+      } else {
+        // Fallback to manually fetching jokes
+        getJokes(COUNT_JOKES_TO_FETCH_TO_STOREFRONT).then((jokeCollection: JokeCollectionModel) => {
+          commit(JokesMutations.SET_COLLECTION, jokeCollection);
+        }).catch((error) => {
+          Logger.error("getJokes error: ", error);
+        });
       }
-    } else {
-      // Fallback to manually fetching jokes
-      getJokes(COUNT_JOKES_TO_FETCH_TO_STOREFRONT).then((jokeCollection: JokeCollectionModel) => {
-        commit(JokesMutations.SET_COLLECTION, jokeCollection);
-      }).catch((error) => {
-        Logger.error("getJokes error: ", error);
+    });
+  },
+  addToFavorites({ dispatch, commit, state }: JokesContext, joke: JokeModel) {
+    const favoriteExists = state.favorites.jokes.find((favorite: JokeModel) => favorite.id == joke.id);
+    if (!favoriteExists && state.favorites.jokes.length < COUNT_FAVORITES_LIMIT) {
+      commit(JokesMutations.ADD_TO_FAVORITES, joke);
+
+      // Add new joke to joke-collection from cache
+      dispatch("getFromCache", 1).then((cache: JokeCollectionModel) => {
+        if (cache.jokes.length > 0) {
+          commit(JokesMutations.ADD_TO_COLLECTION, cache.jokes[0]);
+        }
       });
     }
-  },
-  addToFavorites({ commit }: JokesContext, joke: JokeModel) {
-    commit(JokesMutations.ADD_TO_FAVORITES, joke);
   },
   removeFromFavorites({ commit }: JokesContext, joke: JokeModel) {
     commit(JokesMutations.REMOVE_FROM_FAVORITES, joke);
