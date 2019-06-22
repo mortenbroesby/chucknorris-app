@@ -2,9 +2,11 @@ import Logger from "js-logger";
 import { ActionContext, MutationTree, GetterTree } from "vuex";
 import { RootState } from "../store";
 import { createDispatcher, ModuleDispatcher } from "./utilities";
+import { setItem, getItem, removeItem } from "../utilities";
 
 import { JokeCollectionModel } from "../models/jokeCollection.model";
 import { getJokes } from "../services/api.service";
+import { JokeModel } from "@/models/joke.model";
 
 export const jokesNamespace = "jokeModule";
 type JokesContext = ActionContext<JokesState, RootState>;
@@ -24,6 +26,8 @@ const state: () => JokesState = () => ({
 export enum JokesMutations {
   SET_COLLECTION = "SET_COLLECTION",
   SET_AUTO_INTERVAL_ACTIVE = "SET_AUTO_INTERVAL_ACTIVE",
+  ADD_TO_FAVORITES = "ADD_TO_FAVORITES",
+  SET_FAVORITES = "SET_FAVORITES",
 }
 
 let autoIntervalActiveInterval = -1;
@@ -44,6 +48,14 @@ const mutations: MutationTree<JokesState> = {
       window.clearInterval(autoIntervalActiveInterval);
     }
   },
+  [JokesMutations.ADD_TO_FAVORITES](prevState: JokesState, joke: JokeModel) {
+    prevState.favorites.jokes.push(joke);
+    setItem("userFavoriteJokes", prevState.favorites);
+  },
+  [JokesMutations.SET_FAVORITES](prevState: JokesState, jokeCollection: JokeCollectionModel) {
+    prevState.favorites = jokeCollection;
+    setItem("userFavoriteJokes", jokeCollection);
+  },
 };
 
 type Actions = typeof actions;
@@ -51,13 +63,24 @@ type Actions = typeof actions;
 const actions = {
   initialise({ commit }: JokesContext) {
     commit(JokesMutations.SET_AUTO_INTERVAL_ACTIVE, false);
+
+    const savedFavorites = getItem("userFavoriteJokes");
+    if (savedFavorites) {
+      commit(JokesMutations.SET_FAVORITES, savedFavorites);
+    }
   },
-  getJokes({ commit }: JokesContext, jokeCollection: number) {
+  getJokes({ commit }: JokesContext) {
     getJokes(10).then((jokeCollection: JokeCollectionModel) => {
       commit(JokesMutations.SET_COLLECTION, jokeCollection);
     }).catch((error) => {
       Logger.error("getJokes error: ", error);
     });
+  },
+  addToFavorites({ commit }: JokesContext, joke: JokeModel) {
+    commit(JokesMutations.ADD_TO_FAVORITES, joke);
+  },
+  setFavorites({ commit }: JokesContext, jokeCollection: JokeCollectionModel) {
+    commit(JokesMutations.SET_FAVORITES, jokeCollection);
   },
   setAutoIntervalActive({ commit }: JokesContext, isActive: boolean) {
     commit(JokesMutations.SET_AUTO_INTERVAL_ACTIVE, isActive);

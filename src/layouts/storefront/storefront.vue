@@ -31,7 +31,7 @@
         </div>
 
         <div class="body">
-          <div class="joke-container">
+          <div class="jokes-container">
             <div class="joke--item"
               v-for="(joke, index) in jokes"
               :key="index">
@@ -40,6 +40,20 @@
                 class="joke--button joke--button_favorite"
                 v-on:click="addToFavorites(joke)">
                 Add to favorites
+              </button>
+            </div>
+          </div>
+
+          <div class="favoriteJokes-container" v-if="favoritesVisible">
+            <h1 class="title">Favorites</h1>
+            <div class="favoriteJoke--item"
+              v-for="(joke, index) in favoriteJokes"
+              :key="index">
+              <p class="favoriteJoke--message" v-html="joke.message"></p>
+              <button
+                class="favoriteJoke--button favoriteJoke--button_unfavorite"
+                v-on:click="removeFromFavorites(joke)">
+                Remove from favorites
               </button>
             </div>
           </div>

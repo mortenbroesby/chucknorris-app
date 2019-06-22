@@ -39,6 +39,10 @@ export default class Storefront extends mixins(StoreMixin) {
     return this.jokesState.jokeCollection.jokes || [];
   }
 
+  get favoriteJokes(): JokeModel[] {
+    return this.jokesState.favorites.jokes || [];
+  }
+
   get autoIntervalActive(): boolean {
     return this.jokesState.autoIntervalActive;
   }
@@ -49,10 +53,18 @@ export default class Storefront extends mixins(StoreMixin) {
       : "Start adding random joke to favorites every 5 seconds";
   }
 
+  get jokesVisible() {
+    return this.jokes.length > 0;
+  }
+
   get fetchJokesButtonMessage() {
-    return this.jokes.length > 0
+    return this.jokesVisible
       ? "Get new Chuck Norris jokes"
       : "Get Chuck Norris jokes";
+  }
+
+  get favoritesVisible() {
+    return this.favoriteJokes.length > 0;
   }
 
   /*************************************************/
@@ -64,6 +76,7 @@ export default class Storefront extends mixins(StoreMixin) {
 
   addToFavorites(joke: JokeModel) {
     Logger.info("addToFavorites - joke: ", joke);
+    $jokesModule.dispatch("addToFavorites", joke);
   }
 
   toggleAutoJokeInterval() {

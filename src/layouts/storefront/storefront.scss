@@ -55,7 +55,7 @@
     }
   }
 
-  .joke-container {
+  .jokes-container {
     margin-top: 10px;
     margin-bottom: 60px;
 
@@ -82,6 +82,47 @@
       }
 
       .joke--button {
+        width: 110px;
+        height: 30px;
+        margin-left: 30px;
+      }
+    }
+  }
+
+  .favoriteJokes-container {
+    margin-top: 10px;
+    margin-bottom: 60px;
+
+    .title {
+      padding: 0;
+      margin: 0;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .favoriteJoke--item {
+      display: flex;
+      flex-flow: row wrap;
+      align-items: center;
+      justify-content: center;
+      min-height: 90px;
+
+      &:not(:last-child) {
+        border-top: 1px solid color("grey");
+      }
+
+      &:last-child {
+        border-top: 1px solid color("grey");
+        border-bottom: 1px solid color("grey");
+      }
+
+      .favoriteJoke--message {
+        flex: 1 80%;
+        line-height: 1.5;
+        font-size: 13px;
+      }
+
+      .favoriteJoke--button {
         width: 110px;
         height: 30px;
         margin-left: 30px;
