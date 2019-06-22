@@ -25,11 +25,12 @@ const state: () => JokesState = () => ({
 
 export enum JokesMutations {
   SET_COLLECTION = "SET_COLLECTION",
-  SET_AUTO_INTERVAL_ACTIVE = "SET_AUTO_INTERVAL_ACTIVE",
   ADD_TO_FAVORITES = "ADD_TO_FAVORITES",
   REMOVE_FROM_FAVORITES = "REMOVE_FROM_FAVORITES",
   SET_FAVORITES = "SET_FAVORITES",
   RESET_FAVORITES = "RESET_FAVORITES",
+  SET_CACHE = "SET_CACHE",
+  SET_AUTO_INTERVAL_ACTIVE = "SET_AUTO_INTERVAL_ACTIVE",
 }
 
 let autoIntervalActiveInterval = -1;
@@ -37,18 +38,6 @@ let autoIntervalActiveInterval = -1;
 const mutations: MutationTree<JokesState> = {
   [JokesMutations.SET_COLLECTION](prevState: JokesState, jokeCollection: JokeCollectionModel) {
     prevState.jokeCollection = jokeCollection;
-  },
-  [JokesMutations.SET_AUTO_INTERVAL_ACTIVE](prevState: JokesState, isActive: boolean) {
-    prevState.autoIntervalActive = isActive;
-
-    if (isActive) {
-      window.clearInterval(autoIntervalActiveInterval);
-      autoIntervalActiveInterval = window.setInterval(() => {
-        // TODO: Add random joke to favorites until 10.
-      }, 5000);
-    } else {
-      window.clearInterval(autoIntervalActiveInterval);
-    }
   },
   [JokesMutations.ADD_TO_FAVORITES](prevState: JokesState, joke: JokeModel) {
     const favoriteExists = prevState.favorites.jokes.find((favorite: JokeModel) => favorite.id == joke.id);
@@ -69,6 +58,18 @@ const mutations: MutationTree<JokesState> = {
   [JokesMutations.RESET_FAVORITES](prevState: JokesState) {
     prevState.favorites = new JokeCollectionModel();
     setItem("userFavoriteJokes", prevState.favorites);
+  },
+  [JokesMutations.SET_AUTO_INTERVAL_ACTIVE](prevState: JokesState, isActive: boolean) {
+    prevState.autoIntervalActive = isActive;
+
+    if (isActive) {
+      window.clearInterval(autoIntervalActiveInterval);
+      autoIntervalActiveInterval = window.setInterval(() => {
+        // TODO: Add random joke to favorites until 10.
+      }, 5000);
+    } else {
+      window.clearInterval(autoIntervalActiveInterval);
+    }
   },
 };
 
