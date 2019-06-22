@@ -5,7 +5,7 @@ export enum JokeCategory {
 
 export class JokeModel {
   id: string = "";
-  joke: string = "";
+  message: string = "";
   categories: JokeCategory[] = [];
 
   constructor(metadata: any) {
@@ -15,7 +15,7 @@ export class JokeModel {
       }
 
       if (metadata.joke) {
-        this.joke = metadata.joke;
+        this.message = metadata.joke;
       }
 
       if (metadata.categories) {

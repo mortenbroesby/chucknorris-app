@@ -1,72 +1,74 @@
-.fadeLogin-enter {
-  opacity: 0;
-}
-
-.fadeLogin-enter-active,
-.fadeLogin-leave-active {
-  transition: 600ms all ease;
-}
-
-.fadeLogin-leave-to {
-  opacity: 0;
-}
-
-.centerContent {
-  position: absolute;
-  width: 100vw;
-  height: 100vh;
-  margin: 0 auto;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.loginForm {
-  position: absolute;
-  display: flex;
-  flex-flow: row wrap;
-  max-width: 400px;
-
-  .header {
-    padding: 10px;
-    margin-bottom: 10px;
-
-    .title {
-      padding: 0;
-      margin: 0;
-    }
+.login {
+  .fadeLogin-enter {
+    opacity: 0;
   }
 
-  .inputContainer {
-    flex: 1 100%;
+  .fadeLogin-enter-active,
+  .fadeLogin-leave-active {
+    transition: 600ms all ease;
+  }
+
+  .fadeLogin-leave-to {
+    opacity: 0;
+  }
+
+  .centerContent {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .loginForm {
+    position: absolute;
     display: flex;
     flex-flow: row wrap;
-    padding: 10px;
-    padding-top: 0px;
+    max-width: 400px;
 
-    .input {
-      flex: 1 100%;
+    .header {
+      padding: 10px;
+      margin-bottom: 10px;
 
-      &:not(:last-child) {
-        margin-bottom: 10px;
+      .title {
+        padding: 0;
+        margin: 0;
       }
     }
-  }
 
-  .buttonContainer {
-    flex: 1 100%;
-    display: flex;
-    flex-flow: column wrap;
-    padding: 10px;
-    padding-top: 0px;
-
-    .button {
+    .inputContainer {
       flex: 1 100%;
-      margin-left: 5px;
+      display: flex;
+      flex-flow: row wrap;
+      padding: 10px;
+      padding-top: 0px;
 
-      &:not(:last-child) {
-        margin-left: 0px;
-        margin-right: 5px;
+      .input {
+        flex: 1 100%;
+
+        &:not(:last-child) {
+          margin-bottom: 10px;
+        }
+      }
+    }
+
+    .buttonContainer {
+      flex: 1 100%;
+      display: flex;
+      flex-flow: column wrap;
+      padding: 10px;
+      padding-top: 0px;
+
+      .button {
+        flex: 1 100%;
+        margin-left: 5px;
+
+        &:not(:last-child) {
+          margin-left: 0px;
+          margin-right: 5px;
+        }
       }
     }
   }

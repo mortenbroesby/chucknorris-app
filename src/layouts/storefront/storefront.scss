@@ -3,4 +3,85 @@
 .storefront {
   position: relative;
   color: color('black');
+
+  .centerContent {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .contentContainer {
+    min-width: 800px;
+    min-height: 800px;
+    max-width: 800px;
+    max-height: 800px;
+  }
+
+  .header {
+    position: relative;
+    height: 120px;
+    margin-top: 60px;
+
+    .title {
+      padding: 0;
+      margin: 0;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .actions {
+      position: absolute;
+      display: flex;
+      flex-flow: row wrap;
+      width: 100%;
+    }
+
+    .buttonContainer {
+      flex: 1 100%;
+      display: flex;
+      flex-flow: column wrap;
+      padding: 10px;
+      padding-top: 0px;
+
+      .button {
+        flex: 1 100%;
+        margin-left: 5px;
+
+        &:not(:last-child) {
+          margin-left: 0px;
+          margin-right: 5px;
+        }
+      }
+    }
+  }
+
+  .joke-container {
+    margin-top: 10px;
+
+    .joke--item {
+      display: flex;
+      flex-flow: row wrap;
+      align-items: center;
+      justify-content: center;
+
+      &:not(:last-child) {
+        border-top: 1px solid color("grey");
+      }
+
+      &:last-child {
+        border-top: 1px solid color("grey");
+        border-bottom: 1px solid color("grey");
+      }
+
+      .joke--message {
+        flex: 1 80%;
+        line-height: 1.5;
+      }
+
+      .joke--button {
+        width: 110px;
+        height: 30px;
+      }
+    }
+  }
 }

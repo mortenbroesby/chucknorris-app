@@ -1,5 +1,5 @@
 <template>
-  <div id="login">
+  <div id="login" class="login">
     <button v-on:click="isVisible = !isVisible" style="display: none;">
       Toggle
     </button>
@@ -47,8 +47,8 @@
             {{ toastMessageToDisplay }}
           </div>
         </div>
-      </div>
+      </transition>
+    </div>
 
-    </transition>
   </div>
 </template>
