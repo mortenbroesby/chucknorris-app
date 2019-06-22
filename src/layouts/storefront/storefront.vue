@@ -6,7 +6,6 @@
       <div class="contentContainer">
         <div class="header">
           <h1 class="title">Daily dose of Chuck Norris jokes</h1>
-
           <div class="actions">
             <div class="buttonContainer">
               <button
