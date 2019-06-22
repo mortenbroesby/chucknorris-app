@@ -1,5 +1,6 @@
 <template>
   <div id="storefront" class="storefront">
+    <div class="chuckNorris" :class="{ blur: !noJokesVisible }"></div>
 
     <div class="centerContent">
       <div class="contentContainer">

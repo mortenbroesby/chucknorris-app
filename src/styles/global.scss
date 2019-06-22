@@ -23,6 +23,8 @@ $z-index: (
   dialog              : 90,
   menu                : 20,
   base                : 15,
+  root                : 0,
+  behind              : -1,
 );
 
 @function z-index($key) {

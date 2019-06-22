@@ -3,6 +3,28 @@
 .storefront {
   position: relative;
   color: color('black');
+  width: 100%;
+  height: 100%;
+
+  .chuckNorris {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: 639px;
+    background-image: url("../../assets/chuckNorris.png");
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: 901px 639px;
+    @include z-index(behind);
+
+    opacity: 1;
+    transition: opacity 0.3s;
+
+    &.blur {
+      opacity: 0.05;
+      transition: opacity 0.3s;
+    }
+  }
 
   .centerContent {
     display: flex;
