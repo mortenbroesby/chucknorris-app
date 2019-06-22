@@ -38,10 +38,6 @@ export default class Login extends mixins(StoreMixin)  {
     return this.rootState.userIsAuthenticated;
   }
 
-  get toastMessageToDisplay() {
-    return `Note: ${this.toastMessage}`;
-  }
-
   /*************************************************/
   /* WATCHERS */
   /*************************************************/
