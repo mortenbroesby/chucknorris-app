@@ -1,7 +1,7 @@
 import LoginValidatorService from "../../services/loginValidator.service";
 import locale from "../../locale/en";
 
-const staticValidPassword = "abcdefaabb";
+const STATIC_VALID_PASSWORD = "abcdefaabb";
 
 describe("services/queue.service.ts", () => {
   let loginValidator: LoginValidatorService = new LoginValidatorService();
@@ -21,13 +21,13 @@ describe("services/queue.service.ts", () => {
   });
 
   it("Validates a valid password correctly", () => {
-    const validPassword = staticValidPassword;
+    const validPassword = STATIC_VALID_PASSWORD;
     const usernameValid = loginValidator.checkUsername(validPassword);
     expect(usernameValid.isValid).toBe(true);
   });
 
   it("Validates password partial correctly - isEmptyPassword", () => {
-    const validPassword = staticValidPassword;
+    const validPassword = STATIC_VALID_PASSWORD;
     let validationEmpty = loginValidator.checkIfStringIsEmpty(validPassword);
     expect(validationEmpty.isValid).toBe(true);
 
@@ -38,7 +38,7 @@ describe("services/queue.service.ts", () => {
   });
 
   it("Validates password partial correctly - containsAlphabetSequence", () => {
-    const validPassword = staticValidPassword;
+    const validPassword = STATIC_VALID_PASSWORD;
     let validationEmpty = loginValidator.checkIfStringContainsAlphabetSequence(validPassword);
     expect(validationEmpty.isValid).toBe(true);
 
@@ -49,7 +49,7 @@ describe("services/queue.service.ts", () => {
   });
 
   it("Validates password partial correctly - containsBlacklistedCharacters", () => {
-    const validPassword = staticValidPassword;
+    const validPassword = STATIC_VALID_PASSWORD;
     let validationEmpty = loginValidator.checkIfStringContainsBlacklistedCharacters(validPassword);
     expect(validationEmpty.isValid).toBe(true);
 
@@ -60,7 +60,7 @@ describe("services/queue.service.ts", () => {
   });
 
   it("Validates password partial correctly - containsOverlappingPairs", () => {
-    const validPassword = staticValidPassword;
+    const validPassword = STATIC_VALID_PASSWORD;
     let validationEmpty = loginValidator.checkIfStringContainsTwoOverlappingPairs(validPassword);
     expect(validationEmpty.isValid).toBe(true);
 
@@ -71,7 +71,7 @@ describe("services/queue.service.ts", () => {
   });
 
   it("Validates password partial correctly - isAboveMaxLength", () => {
-    const validPassword = staticValidPassword;
+    const validPassword = STATIC_VALID_PASSWORD;
     let validationEmpty = loginValidator.checkIfStringIsAboveMaxLength(validPassword);
     expect(validationEmpty.isValid).toBe(true);
 
@@ -82,7 +82,7 @@ describe("services/queue.service.ts", () => {
   });
 
   it("Validates password partial correctly - hasUppercase", () => {
-    const validPassword = staticValidPassword;
+    const validPassword = STATIC_VALID_PASSWORD;
     let validationEmpty = loginValidator.checkIfStringHasUpperCase(validPassword);
     expect(validationEmpty.isValid).toBe(true);
 
@@ -93,7 +93,7 @@ describe("services/queue.service.ts", () => {
   });
 
   it("Validates password partial correctly - containsOnlyLetters", () => {
-    const validPassword = staticValidPassword;
+    const validPassword = STATIC_VALID_PASSWORD;
     let validationEmpty = loginValidator.checkIfStringContainsOnlyLetters(validPassword);
     expect(validationEmpty.isValid).toBe(true);
 
@@ -104,14 +104,24 @@ describe("services/queue.service.ts", () => {
   });
 
   it("Returns valid genericSuccessMessage", () => {
-    let validationEmpty = loginValidator.genericSuccessMessage();
-    expect(validationEmpty.isValid).toBe(true);
-    expect(validationEmpty.message).toBe(undefined);
+    let successMessage = loginValidator.genericSuccessMessage();
+    expect(successMessage.isValid).toBe(true);
+    expect(successMessage.message).toBe(undefined);
   });
 
   it("Returns valid genericErrorMessage", () => {
-    let validationEmpty = loginValidator.genericErrorMessage("abc");
-    expect(validationEmpty.isValid).toBe(false);
-    expect(validationEmpty.message).toBe("abc");
+    let errorMessage = loginValidator.genericErrorMessage("abc");
+    expect(errorMessage.isValid).toBe(false);
+    expect(errorMessage.message).toBe("abc");
+  });
+
+  it("Returns valid salted credentials", () => {
+    const saltedCredentials = loginValidator.saltLoginCredentials({
+      username: "test",
+      password: STATIC_VALID_PASSWORD
+    });
+
+    expect(saltedCredentials.username).toBe("test");
+    expect(saltedCredentials.password).not.toBe(STATIC_VALID_PASSWORD);
   });
 });

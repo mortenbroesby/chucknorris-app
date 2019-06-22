@@ -83,7 +83,6 @@ export default class LoginValidatorService {
 
   checkIfStringHasUpperCase(value: string): InputValidationMessage {
     const hasUppercase = stringHasUpperCase(value);
-
     if (hasUppercase) {
       const errorMessage = locale.validationErrors.hasUppercase;
       return this.genericErrorMessage(errorMessage);
