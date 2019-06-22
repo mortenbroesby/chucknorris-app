@@ -1,0 +1,6 @@
+<testsuites name="jest tests" tests="1" failures="0" time="8.569">
+  <testsuite name="services/loginService.service.ts" errors="0" failures="0" skipped="0" timestamp="2019-06-22T16:41:57" time="2.544" tests="1">
+    <testcase classname="services/loginService.service.ts Returns true" name="services/loginService.service.ts Returns true" time="0.003">
+    </testcase>
+  </testsuite>
+</testsuites>
