@@ -27,6 +27,8 @@ export default class Login extends Vue {
 
   loginValidator: LoginValidatorService = new LoginValidatorService();
 
+  isVisible: boolean = false;
+
   /*************************************************/
   /* COMPUTED'S */
   /*************************************************/
@@ -49,6 +51,12 @@ export default class Login extends Vue {
   /*************************************************/
   /* LIFE CYCLE EVENTS */
   /*************************************************/
+  mounted() {
+    setTimeout(() => {
+      this.isVisible = true;
+    }, 500);
+  }
+
   beforeDestroy () {
     window.clearTimeout(this.toastMessageClearTimeout);
   }
@@ -80,7 +88,10 @@ export default class Login extends Vue {
       password: this.password,
     }).then((credentials: UserCredentials) => {
       Logger.info("Store credentials: ", credentials);
-      $store.dispatch("loginUser", credentials);
+      this.isVisible = false;
+      setTimeout(() => {
+        $store.dispatch("loginUser", credentials);
+      }, 1000);
     }).catch((rejection: InputValidationMessage) => {
       Logger.error("Error logging in: ", rejection);
       this.showToastMessage(rejection.message || "");
