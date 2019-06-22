@@ -109,6 +109,7 @@ const actions = {
   logoutUser({ dispatch }: Context): void {
     dispatch("setUserCredentials", undefined);
     dispatch("setUserAuthenticated", false);
+    $jokesModule.dispatch("resetFavorites");
     router.replace({ name: RouteName.LOGIN });
   },
 };

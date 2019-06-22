@@ -28,6 +28,7 @@ export enum JokesMutations {
   SET_AUTO_INTERVAL_ACTIVE = "SET_AUTO_INTERVAL_ACTIVE",
   ADD_TO_FAVORITES = "ADD_TO_FAVORITES",
   SET_FAVORITES = "SET_FAVORITES",
+  RESET_FAVORITES = "RESET_FAVORITES",
 }
 
 let autoIntervalActiveInterval = -1;
@@ -56,6 +57,10 @@ const mutations: MutationTree<JokesState> = {
     prevState.favorites = jokeCollection;
     setItem("userFavoriteJokes", jokeCollection);
   },
+  [JokesMutations.RESET_FAVORITES](prevState: JokesState) {
+    prevState.favorites = new JokeCollectionModel();
+    setItem("userFavoriteJokes", prevState.favorites);
+  },
 };
 
 type Actions = typeof actions;
@@ -81,6 +86,9 @@ const actions = {
   },
   setFavorites({ commit }: JokesContext, jokeCollection: JokeCollectionModel) {
     commit(JokesMutations.SET_FAVORITES, jokeCollection);
+  },
+  resetFavorites({ commit }: JokesContext, jokeCollection: JokeCollectionModel) {
+    commit(JokesMutations.RESET_FAVORITES);
   },
   setAutoIntervalActive({ commit }: JokesContext, isActive: boolean) {
     commit(JokesMutations.SET_AUTO_INTERVAL_ACTIVE, isActive);
