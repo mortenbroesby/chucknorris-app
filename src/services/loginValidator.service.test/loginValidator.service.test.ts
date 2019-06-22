@@ -1,7 +1,7 @@
 import LoginValidatorService from "../../services/loginValidator.service";
 import locale from "../../locale/en";
-import { UserCredentials, ErrorToastMessage } from "@/interfaces";
-import { InputFieldType } from "@/enums";
+import { UserCredentials, ErrorToastMessage } from "../../interfaces";
+import { InputFieldType } from "../../enums";
 
 const STATIC_VALID_PASSWORD = "abcdefaabb";
 

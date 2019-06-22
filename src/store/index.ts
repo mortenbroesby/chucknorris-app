@@ -106,14 +106,12 @@ const actions = {
   loginUser({ dispatch }: Context, credentials?: UserCredentials): void {
     dispatch("setUserCredentials", credentials);
     dispatch("setUserAuthenticated", true);
-    router.replace({ name: RouteName.STOREFRONT });
   },
   logoutUser({ dispatch }: Context): void {
     dispatch("setUserCredentials", undefined);
     dispatch("setUserAuthenticated", false);
     $jokesModule.dispatch("resetFavorites");
     $jokesModule.dispatch("resetJokesCollection");
-    router.replace({ name: RouteName.LOGIN });
   },
 };
 

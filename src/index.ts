@@ -20,6 +20,8 @@ Vue.config.performance = true;
 import App from "./App.vue";
 
 import Spinner from "./components/spinner";
+import Popup from "./components/popup";
+import Login from "./layouts/login";
 
 // Import styles
 import "./App.scss";
@@ -34,6 +36,8 @@ function initialiseApplication() {
     router: router,
     components: {
       Spinner,
+      Popup,
+      Login,
     },
   })
   class Application extends Vue {
@@ -57,6 +61,10 @@ function initialiseApplication() {
 
     get applicationHasLoaded(): boolean {
       return this.store.applicationHasLoaded;
+    }
+
+    get userIsAuthenticated(): boolean {
+      return this.store.userIsAuthenticated;
     }
 
     /*************************************************/

@@ -21,7 +21,8 @@ $main-application-background: map-get($colors, 'background');
 
 /* Z-index landscape */
 $z-index: (
-  spinner             : 100,
+  spinner             : 50,
+  popup               : 40,
   base                : 15,
   root                : 0,
   behind              : -1,

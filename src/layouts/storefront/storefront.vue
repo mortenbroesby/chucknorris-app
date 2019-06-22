@@ -2,7 +2,7 @@
   <div id="storefront" class="storefront">
     <div class="chuckNorris" :class="{ blur: !noJokesVisible }"></div>
 
-    <div class="logoutUserContainer">
+    <div class="logoutUserContainer" v-if="userIsAuthenticated">
       <button
         id="logoutUser"
         class="button button--logoutUser"

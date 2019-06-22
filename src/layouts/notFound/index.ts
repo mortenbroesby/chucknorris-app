@@ -25,23 +25,15 @@ export default class NotFound extends Vue {
   /* LIFE CYCLE */
   /*************************************************/
   mounted() {
-    setTimeout(() => {
-      this.redirectUser();
-    }, 1500);
+    this.redirectUser();
   }
 
   /*************************************************/
   /* METHODS */
   /*************************************************/
   redirectUser() {
-    if (!$store.state.userIsAuthenticated) {
-      this.$router.replace({
-        name: RouteName.LOGIN
-      });
-    } else {
-      this.$router.replace({
-        name: RouteName.STOREFRONT
-      });
-    }
+    this.$router.replace({
+      name: RouteName.STOREFRONT
+    });
   }
 }

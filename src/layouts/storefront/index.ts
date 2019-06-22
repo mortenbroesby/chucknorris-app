@@ -35,6 +35,10 @@ export default class Storefront extends mixins(StoreMixin) {
   /*************************************************/
   /* COMPUTED'S */
   /*************************************************/
+  get userIsAuthenticated() {
+    return this.rootState.userIsAuthenticated;
+  }
+
   get jokes(): JokeModel[] {
     return this.jokesState.jokeCollection.jokes || [];
   }

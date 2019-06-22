@@ -6,7 +6,7 @@ import { setItem, getItem, removeItem } from "../utilities";
 
 import { JokeCollectionModel } from "../models/jokeCollection.model";
 import { getJokes } from "../services/api.service";
-import { JokeModel } from "@/models/joke.model";
+import { JokeModel } from "../models/joke.model";
 
 export const jokesNamespace = "jokeModule";
 type JokesContext = ActionContext<JokesState, RootState>;
