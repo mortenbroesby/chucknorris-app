@@ -102,4 +102,16 @@ describe("services/queue.service.ts", () => {
     expect(validationEmpty.isValid).toBe(false);
     expect(validationEmpty.message).toEqual(locale.validationErrors.containsOnlyLetters);
   });
+
+  it("Returns valid genericSuccessMessage", () => {
+    let validationEmpty = loginValidator.genericSuccessMessage();
+    expect(validationEmpty.isValid).toBe(true);
+    expect(validationEmpty.message).toBe(undefined);
+  });
+
+  it("Returns valid genericErrorMessage", () => {
+    let validationEmpty = loginValidator.genericErrorMessage("abc");
+    expect(validationEmpty.isValid).toBe(false);
+    expect(validationEmpty.message).toBe("abc");
+  });
 });
