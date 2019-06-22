@@ -53,33 +53,21 @@
         </div>
 
         <div class="body">
-          <div class="favoriteJokes-container" v-if="favoritesVisible">
-            <h5 class="title">My favorites</h5>
-            <div class="favoriteJoke--item"
-              v-for="(joke, index) in favoriteJokes"
-              :key="index">
-              <p class="favoriteJoke--message" v-html="joke.message"></p>
-              <button
-                class="favoriteJoke--button favoriteJoke--button_unfavorite"
-                v-on:click="removeFromFavorites(joke)">
-                <i class="material-icons">favorite</i>
-              </button>
-            </div>
-          </div>
+          <list-view
+            title="My favorites"
+            buttonIcon="favorite"
+            :list="favoriteJokes"
+            :isVisible="favoritesVisible"
+            @click="removeFromFavorites">
+          </list-view>
 
-          <div class="jokes-container" v-if="jokesVisible">
-            <h5 class="title">Random Jokes</h5>
-            <div class="joke--item"
-              v-for="(joke, index) in jokes"
-              :key="index">
-              <p class="joke--message" v-html="joke.message"></p>
-              <button
-                class="joke--button joke--button_favorite"
-                v-on:click="addToFavorites(joke)">
-                <i class="material-icons">favorite_border</i>
-              </button>
-            </div>
-          </div>
+          <list-view
+            title="Random Jokes"
+            buttonIcon="favorite_border"
+            :list="jokes"
+            :isVisible="jokesVisible"
+            @click="addToFavorites">
+          </list-view>
         </div>
       </div>
     </div>

@@ -17,3 +17,7 @@ export interface InputValidationMessage {
   isValid: boolean;
   message?: string;
 }
+
+export interface List {
+  message: string;
+}

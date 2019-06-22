@@ -5,15 +5,18 @@ import { $store } from "../../store";
 import StoreMixin from "../../mixins/store.mixin";
 import { $jokesModule } from "../../store/jokes.module";
 
-import { JokeCollectionModel } from "../../models/jokeCollection.model";
 import { JokeModel } from "../../models/joke.model";
+
+import ListView from "../../components/listView";
 
 import template from "./storefront.vue";
 import "./storefront.scss";
 
 @Component({
   mixins: [template],
-  components: {}
+  components: {
+    ListView,
+  }
 })
 export default class Storefront extends mixins(StoreMixin) {
   /*************************************************/
