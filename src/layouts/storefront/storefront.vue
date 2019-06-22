@@ -9,10 +9,10 @@
           <div class="actions">
             <div class="buttonContainer">
               <button
-                id="refreshJokes"
-                class="button button--refreshJokes"
-                @click="refreshJokes">
-                Refresh jokes
+                id="fetchJokes"
+                class="button button--fetchJokes"
+                @click="fetchJokes">
+                {{ fetchJokesButtonMessage }}
               </button>
               <button
                 id="toggleAutoJokeInterval"

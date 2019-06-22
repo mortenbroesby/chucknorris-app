@@ -43,16 +43,18 @@ export default class Storefront extends Vue {
       : "Start adding random joke to favorites every 5 seconds";
   }
 
+  get fetchJokesButtonMessage() {
+    return this.jokes.length > 0
+      ? "Get new Chuck Norris jokes"
+      : "Get Chuck Norris jokes";
+  }
+
   /*************************************************/
   /* Methods */
   /*************************************************/
   fetchJokes() {
     getJokes(10).then((jokeCollection: JokeCollectionModel) => {
       this.jokeCollection = jokeCollection;
-
-      jokeCollection.jokes.forEach((joke: JokeModel) => {
-        Logger.info("jokeCollection - joke: ", joke);
-      });
     }).catch((error) => {
       Logger.error("getJokes error: ", error);
     });
