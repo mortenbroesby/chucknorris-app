@@ -1,7 +1,8 @@
-import Vue from "vue";
 import { Component } from "vue-property-decorator";
+import { mixins } from "vue-class-component";
 import Logger from "js-logger";
 import { $store } from "../../store";
+import StoreMixin from "../../mixins/store.mixin";
 
 import { getJokes } from "../../services/api.service";
 
@@ -15,7 +16,7 @@ import "./storefront.scss";
   mixins: [template],
   components: {}
 })
-export default class Storefront extends Vue {
+export default class Storefront extends mixins(StoreMixin) {
   /*************************************************/
   /* PROPERTIES */
   /*************************************************/

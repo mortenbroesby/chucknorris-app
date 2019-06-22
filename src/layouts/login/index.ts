@@ -1,12 +1,13 @@
-import Vue from "vue";
-import { Component } from "vue-property-decorator";
 import Logger from "js-logger";
-
-import LoginValidatorService from "../../services/loginValidator.service";
-import { UserCredentials, InputValidationMessage } from "../../interfaces";
+import { mixins } from "vue-class-component";
+import { Component } from "vue-property-decorator";
+import StoreMixin from "../../mixins/store.mixin";
 import { stringIsEmpty } from "../../utilities";
 
 import { RootState, $store } from "../../store";
+
+import LoginValidatorService from "../../services/loginValidator.service";
+import { UserCredentials, InputValidationMessage } from "../../interfaces";
 
 import template from "./login.vue";
 import "./login.scss";
@@ -15,7 +16,7 @@ import "./login.scss";
   mixins: [template],
   components: {}
 })
-export default class Login extends Vue {
+export default class Login extends mixins(StoreMixin)  {
   /*************************************************/
   /* PROPERTIES */
   /*************************************************/
@@ -32,12 +33,8 @@ export default class Login extends Vue {
   /*************************************************/
   /* COMPUTED'S */
   /*************************************************/
-  get store(): RootState {
-    return $store.state;
-  }
-
   get userIsAuthenticated(): boolean {
-    return this.store.userIsAuthenticated;
+    return this.state.userIsAuthenticated;
   }
 
   get toastIsVisible(): boolean {
