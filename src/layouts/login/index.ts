@@ -49,7 +49,7 @@ export default class Login extends Vue {
   }
 
   /*************************************************/
-  /* LIFE CYCLE EVENTS */
+  /* LIFE CYCLE */
   /*************************************************/
   mounted() {
     setTimeout(() => {

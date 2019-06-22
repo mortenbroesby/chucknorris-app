@@ -38,7 +38,7 @@ function initialiseApplication() {
   })
   class Application extends Vue {
     /*************************************************/
-    /* LIFE CYCLE EVENTS */
+    /* LIFE CYCLE */
     /*************************************************/
     mounted() {
       this.initialiseApplication();
