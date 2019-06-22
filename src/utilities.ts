@@ -156,3 +156,16 @@ export function stringContainsAlphabetSequence(string: string) {
 
   return validString;
 }
+
+export function stringContainsBlacklistedCharacters(string: string, blacklistedCharacters: string[]) {
+  let validString: boolean = true;
+
+  blacklistedCharacters.forEach(character => {
+    const stringIsSequence = string.includes(character);
+    if (stringIsSequence) {
+      validString = false;
+    }
+  });
+
+  return validString;
+}

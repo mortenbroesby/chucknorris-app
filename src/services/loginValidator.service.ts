@@ -73,6 +73,14 @@ export default class LoginValidatorService {
       };
     }
 
+    const blacklistedCharacters = ["i", "O", "l"];
+    if (!stringContainsBlacklistedCharacters(value, blacklistedCharacters)) {
+      return {
+        isValid: false,
+        message: "Passwords may not contain the letters i, O, or l, as these letters can be mistaken for other characters and are therefore confusing."
+      };
+    }
+
     if (value.length > 32) {
       return {
         isValid: false,
