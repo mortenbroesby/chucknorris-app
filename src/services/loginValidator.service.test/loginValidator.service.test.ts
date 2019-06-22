@@ -6,12 +6,18 @@ import { InputFieldType } from "@/enums";
 const STATIC_VALID_PASSWORD = "abcdefaabb";
 
 describe("services/queue.service.ts", () => {
+  /*************************************************/
+  /* SETUP */
+  /*************************************************/
   let loginValidator: LoginValidatorService = new LoginValidatorService();
 
   beforeEach(() => {
     loginValidator = new LoginValidatorService();
   });
 
+  /*************************************************/
+  /* MAIN VALIDATION */
+  /*************************************************/
   it("Validates valid and invalid username correctly", () => {
     const validUsername = "User";
     const usernameValid = loginValidator.checkUsername(validUsername);
@@ -24,10 +30,62 @@ describe("services/queue.service.ts", () => {
 
   it("Validates a valid password correctly", () => {
     const validPassword = STATIC_VALID_PASSWORD;
-    const usernameValid = loginValidator.checkUsername(validPassword);
+    const usernameValid = loginValidator.checkPassword(validPassword);
     expect(usernameValid.isValid).toBe(true);
   });
 
+  it("Validates a an invalid password correctly - isEmptyPassword", () => {
+    const invalidPassword = "";
+    const validation = loginValidator.checkPassword(invalidPassword);
+    expect(validation.isValid).toBe(false);
+    expect(validation.message).toEqual(locale.validationErrors.isEmptyPassword);
+  });
+
+  it("Validates a an invalid password correctly - containsAlphabetSequence", () => {
+    const invalidPassword = "aaaa";
+    const validation = loginValidator.checkPassword(invalidPassword);
+    expect(validation.isValid).toBe(false);
+    expect(validation.message).toEqual(locale.validationErrors.containsAlphabetSequence);
+  });
+
+  it("Validates a an invalid password correctly - containsBlacklistedCharacters", () => {
+    const invalidPassword = "abcO";
+    const validation = loginValidator.checkPassword(invalidPassword);
+    expect(validation.isValid).toBe(false);
+    expect(validation.message).toEqual(locale.validationErrors.containsBlacklistedCharacters);
+  });
+
+  it("Validates a an invalid password correctly - containsOverlappingPairs", () => {
+    const invalidPassword = "abcaaaaa";
+    const validation = loginValidator.checkPassword(invalidPassword);
+    expect(validation.isValid).toBe(false);
+    expect(validation.message).toEqual(locale.validationErrors.containsOverlappingPairs);
+  });
+
+  it("Validates a an invalid password correctly - isAboveMaxLength", () => {
+    const invalidPassword = "abcaabbabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabc";
+    const validation = loginValidator.checkPassword(invalidPassword);
+    expect(validation.isValid).toBe(false);
+    expect(validation.message).toEqual(locale.validationErrors.isAboveMaxLength);
+  });
+
+  it("Validates a an invalid password correctly - hasUppercase", () => {
+    const invalidPassword = "abcaabbHU";
+    const validation = loginValidator.checkPassword(invalidPassword);
+    expect(validation.isValid).toBe(false);
+    expect(validation.message).toEqual(locale.validationErrors.hasUppercase);
+  });
+
+  it("Validates a an invalid password correctly - containsOnlyLetters", () => {
+    const invalidPassword = "abcaabb$@";
+    const validation = loginValidator.checkPassword(invalidPassword);
+    expect(validation.isValid).toBe(false);
+    expect(validation.message).toEqual(locale.validationErrors.containsOnlyLetters);
+  });
+
+  /*************************************************/
+  /* PARTIALS VALIDATION */
+  /*************************************************/
   it("Validates password partial correctly - isEmptyPassword", () => {
     const validPassword = STATIC_VALID_PASSWORD;
     let validationEmpty = loginValidator.checkIfStringIsEmpty(validPassword);
@@ -105,18 +163,9 @@ describe("services/queue.service.ts", () => {
     expect(validationEmpty.message).toEqual(locale.validationErrors.containsOnlyLetters);
   });
 
-  it("Returns valid genericSuccessMessage", () => {
-    let successMessage = loginValidator.genericSuccessMessage();
-    expect(successMessage.isValid).toBe(true);
-    expect(successMessage.message).toBe(undefined);
-  });
-
-  it("Returns valid genericErrorMessage", () => {
-    let errorMessage = loginValidator.genericErrorMessage("abc");
-    expect(errorMessage.isValid).toBe(false);
-    expect(errorMessage.message).toBe("abc");
-  });
-
+  /*************************************************/
+  /* PUBLIC FUNCTIONS */
+  /*************************************************/
   it("Checks credentials correctly for valid password", (done) => {
     loginValidator.checkCredentials({
       username: "testUser",
@@ -151,5 +200,20 @@ describe("services/queue.service.ts", () => {
 
     expect(saltedCredentials.username).toBe("test");
     expect(saltedCredentials.password).not.toBe(STATIC_VALID_PASSWORD);
+  });
+
+  /*************************************************/
+  /* HELPER FUNCTIONS */
+  /*************************************************/
+  it("Returns valid genericSuccessMessage", () => {
+    let successMessage = loginValidator.genericSuccessMessage();
+    expect(successMessage.isValid).toBe(true);
+    expect(successMessage.message).toBe(undefined);
+  });
+
+  it("Returns valid genericErrorMessage", () => {
+    let errorMessage = loginValidator.genericErrorMessage("abc");
+    expect(errorMessage.isValid).toBe(false);
+    expect(errorMessage.message).toBe("abc");
   });
 });
