@@ -65,7 +65,7 @@ function initialiseApplication() {
     initialiseApplication() {
       $store.dispatch("setSpinner", true);
 
-      $store.dispatch("initialiseApplication").then(() => {
+      $store.dispatch("initialise").then(() => {
         Logger.info("Application initialised.");
         $store.dispatch("setSpinner", false);
       });

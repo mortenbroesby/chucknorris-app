@@ -66,7 +66,7 @@ const mutations = {
 };
 
 const actions = {
-  initialiseApplication({ dispatch, commit }: Context): Promise<void> {
+  initialise({ dispatch, commit }: Context): Promise<void> {
     return new Promise((resolve) => {
       const savedCredentials = getItem("userCredentials");
       if (savedCredentials) {
