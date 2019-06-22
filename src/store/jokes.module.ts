@@ -27,6 +27,7 @@ export enum JokesMutations {
   SET_COLLECTION = "SET_COLLECTION",
   SET_AUTO_INTERVAL_ACTIVE = "SET_AUTO_INTERVAL_ACTIVE",
   ADD_TO_FAVORITES = "ADD_TO_FAVORITES",
+  REMOVE_FROM_FAVORITES = "REMOVE_FROM_FAVORITES",
   SET_FAVORITES = "SET_FAVORITES",
   RESET_FAVORITES = "RESET_FAVORITES",
 }
@@ -51,10 +52,14 @@ const mutations: MutationTree<JokesState> = {
   },
   [JokesMutations.ADD_TO_FAVORITES](prevState: JokesState, joke: JokeModel) {
     const favoriteExists = prevState.favorites.jokes.find((favorite: JokeModel) => favorite.id == joke.id);
-    if (!favoriteExists) {
+    if (!favoriteExists && prevState.favorites.jokes.length < 10) {
       prevState.favorites.jokes.push(joke);
       setItem("userFavoriteJokes", prevState.favorites);
     }
+  },
+  [JokesMutations.REMOVE_FROM_FAVORITES](prevState: JokesState, joke: JokeModel) {
+    prevState.favorites.jokes = prevState.favorites.jokes.filter(favorite => favorite.id !== joke.id);
+    setItem("userFavoriteJokes", prevState.favorites);
   },
   [JokesMutations.SET_FAVORITES](prevState: JokesState, jokeCollection: JokeCollectionModel) {
     prevState.favorites = jokeCollection;
@@ -86,6 +91,9 @@ const actions = {
   },
   addToFavorites({ commit }: JokesContext, joke: JokeModel) {
     commit(JokesMutations.ADD_TO_FAVORITES, joke);
+  },
+  removeFromFavorites({ commit }: JokesContext, joke: JokeModel) {
+    commit(JokesMutations.REMOVE_FROM_FAVORITES, joke);
   },
   setFavorites({ commit }: JokesContext, jokeCollection: JokeCollectionModel) {
     commit(JokesMutations.SET_FAVORITES, jokeCollection);

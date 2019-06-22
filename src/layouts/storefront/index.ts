@@ -75,8 +75,11 @@ export default class Storefront extends mixins(StoreMixin) {
   }
 
   addToFavorites(joke: JokeModel) {
-    Logger.info("addToFavorites - joke: ", joke);
     $jokesModule.dispatch("addToFavorites", joke);
+  }
+
+  removeFromFavorites(joke: JokeModel) {
+    $jokesModule.dispatch("removeFromFavorites", joke);
   }
 
   toggleAutoJokeInterval() {
