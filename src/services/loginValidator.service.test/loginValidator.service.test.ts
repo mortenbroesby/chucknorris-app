@@ -1,5 +1,7 @@
 import LoginValidatorService from "../../services/loginValidator.service";
 import locale from "../../locale/en";
+import { UserCredentials, ErrorToastMessage } from "@/interfaces";
+import { InputFieldType } from "@/enums";
 
 const STATIC_VALID_PASSWORD = "abcdefaabb";
 
@@ -113,6 +115,32 @@ describe("services/queue.service.ts", () => {
     let errorMessage = loginValidator.genericErrorMessage("abc");
     expect(errorMessage.isValid).toBe(false);
     expect(errorMessage.message).toBe("abc");
+  });
+
+  it("Checks credentials correctly for valid password", (done) => {
+    loginValidator.checkCredentials({
+      username: "testUser",
+      password: STATIC_VALID_PASSWORD,
+    }).then((credentials: UserCredentials) => {
+      expect(credentials.username).toBe("testUser");
+      done();
+    }).catch((rejection: ErrorToastMessage) => {
+      done.fail(new Error("Valid credentials check failed"));
+    });
+  });
+
+  it("Checks credentials correctly for invalid password", (done) => {
+    loginValidator.checkCredentials({
+      username: "testUser",
+      password: "",
+    }).then(() => {
+      done.fail(new Error("Invalid credentials check failed"));
+    }).catch((rejection: ErrorToastMessage) => {
+      expect(rejection.inputField).toBe(InputFieldType.password);
+      expect(rejection.validation.isValid).toBe(false);
+      expect(rejection.validation.message).toBe(locale.validationErrors.isEmptyPassword);
+      done();
+    });
   });
 
   it("Returns valid salted credentials", () => {
