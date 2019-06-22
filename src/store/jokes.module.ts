@@ -59,6 +59,8 @@ const mutations: MutationTree<JokesState> = {
       prevState.favorites.jokes.push(joke);
       prevState.jokeCollection.jokes = prevState.jokeCollection.jokes.filter(collectionItem => collectionItem.id !== joke.id);
       setItem("userFavoriteJokes", prevState.favorites);
+    } else {
+      alert(`You've reached your limit of ${COUNT_FAVORITES_LIMIT} jokes.`);
     }
   },
   [JokesMutations.REMOVE_FROM_FAVORITES](prevState: JokesState, joke: JokeModel) {
@@ -154,6 +156,8 @@ const actions = {
           commit(JokesMutations.ADD_TO_COLLECTION, cache.jokes[0]);
         }
       });
+    } else {
+      alert(`You've reached your limit of ${COUNT_FAVORITES_LIMIT} jokes.`);
     }
   },
   removeFromFavorites({ commit }: JokesContext, joke: JokeModel) {
