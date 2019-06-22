@@ -7,7 +7,7 @@
   "scripts": {
     "eslint": "eslint --fix --ext .js,.vue src",
     "dev": "parcel serve src/index.html -d dist --public-url /dist/ --open",
-    "build": "cross-env NODE_ENV=production parcel build src/index.html -d build --public-url ./src --out-dir ./dist",
+    "build": "cross-env NODE_ENV=production parcel build ./src/index.html --public-url ./",
     "clean": "rimraf .cache/ && rimraf dist/ && rimraf build/"
   },
   "keywords": [
