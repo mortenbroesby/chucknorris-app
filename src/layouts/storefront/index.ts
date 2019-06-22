@@ -75,7 +75,12 @@ export default class Storefront extends mixins(StoreMixin) {
   /* Methods */
   /*************************************************/
   fetchJokes() {
-    $jokesModule.dispatch("getJokes");
+    // Simulate load for user experience
+    $store.dispatch("setSpinner", true);
+    setTimeout(() => {
+      $jokesModule.dispatch("getJokes");
+      $store.dispatch("setSpinner", false);
+    }, 250);
   }
 
   addToFavorites(joke: JokeModel) {
