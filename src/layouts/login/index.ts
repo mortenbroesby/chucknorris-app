@@ -2,12 +2,12 @@ import Logger from "js-logger";
 import { mixins } from "vue-class-component";
 import { Component, Watch } from "vue-property-decorator";
 import StoreMixin from "../../mixins/store.mixin";
-import { stringIsEmpty } from "../../utilities";
 
 import { $store } from "../../store";
+import { InputFieldType } from "../../enums";
 
 import LoginValidatorService from "../../services/loginValidator.service";
-import { UserCredentials, InputValidationMessage } from "../../interfaces";
+import { UserCredentials, ErrorToastMessage } from "../../interfaces";
 
 import template from "./login.vue";
 import "./login.scss";
@@ -25,6 +25,7 @@ export default class Login extends mixins(StoreMixin)  {
 
   toastMessage: string = "";
   toastMessageVisible: boolean = false;
+  inputFieldWithError: InputFieldType | undefined = undefined;
 
   loginValidator: LoginValidatorService = new LoginValidatorService();
 
@@ -48,6 +49,7 @@ export default class Login extends mixins(StoreMixin)  {
   @Watch("password")
   onInputChange() {
     this.hideToastMessage();
+    this.clearHighlightedInput();
   }
 
   /*************************************************/
@@ -68,6 +70,14 @@ export default class Login extends mixins(StoreMixin)  {
     this.password = "";
   }
 
+  setInputFieldHighlight(inputField: InputFieldType) {
+    this.inputFieldWithError = inputField;
+  }
+
+  clearHighlightedInput() {
+    this.inputFieldWithError = undefined;
+  }
+
   addToastMessage(toastMessage: string) {
     Logger.info("addToastMessage: ", toastMessage);
     this.toastMessageVisible = true;
@@ -76,6 +86,10 @@ export default class Login extends mixins(StoreMixin)  {
 
   hideToastMessage() {
     this.toastMessageVisible = false;
+  }
+
+  highlightInputField(inputField: InputFieldType) {
+    return this.inputFieldWithError === inputField;
   }
 
   submitLogin() {
@@ -90,9 +104,10 @@ export default class Login extends mixins(StoreMixin)  {
       setTimeout(() => {
         $store.dispatch("loginUser", credentials);
       }, 1000);
-    }).catch((rejection: InputValidationMessage) => {
+    }).catch((rejection: ErrorToastMessage) => {
       Logger.error("Error logging in: ", rejection);
-      this.addToastMessage(rejection.message || "");
+      this.setInputFieldHighlight(rejection.inputField);
+      this.addToastMessage(rejection.validation.message || "");
     });
   }
 }

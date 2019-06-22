@@ -62,6 +62,12 @@
 
       .input {
         flex: 1 100%;
+        border: 1px solid transparent;
+        padding: 10px 10px;
+
+        &.highlight {
+          border: 1px solid red;
+        }
 
         &:not(:last-child) {
           margin-bottom: 10px;

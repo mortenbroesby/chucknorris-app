@@ -15,16 +15,18 @@
             <input
               id="inputUsername"
               class="input input--username"
+              :class="{ highlight: highlightInputField('username') }"
               type="username"
               v-model="username"
-              placeholder="Input username"
+              placeholder="Your username."
             />
             <input
               id="inputPassword"
               class="input input--password"
+              :class="{ highlight: highlightInputField('password') }"
               type="password"
               v-model="password"
-              placeholder="Input password"
+              placeholder="Your password."
             />
           </div>
 

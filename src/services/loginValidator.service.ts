@@ -3,6 +3,7 @@ import Logger from "js-logger";
 import {
   UserCredentials,
   InputValidationMessage,
+  ErrorToastMessage,
 } from "../interfaces";
 
 import {
@@ -10,7 +11,12 @@ import {
   stringHasUpperCase,
   stringContainsOnlyLetters,
   stringContainsAlphabetSequence,
+  stringContainsBlacklistedCharacters,
 } from "../utilities";
+
+import {
+  InputFieldType,
+} from "../enums";
 
 export default class LoginValidatorService {
   checkCredentials(credentials: UserCredentials): Promise<UserCredentials> {
@@ -21,18 +27,26 @@ export default class LoginValidatorService {
       if (usernameCheck.isValid && passwordCheck.isValid) {
         resolve(this.saltLoginCredentials(credentials));
       } else {
-        if (!usernameCheck.isValid) {
-          reject(usernameCheck);
-        } else {
-          reject(passwordCheck);
-        }
+        const inputField = !usernameCheck.isValid
+          ? InputFieldType.username
+          : InputFieldType.password;
+
+        const validation = !usernameCheck.isValid
+          ? usernameCheck
+          : passwordCheck;
+
+        const toastMessage: ErrorToastMessage = {
+          inputField,
+          validation,
+        };
+
+        reject(toastMessage);
       }
     });
   }
 
   checkUsername(value: string): InputValidationMessage {
     if (stringIsEmpty(value)) {
-      Logger.info("Usernames cannot be empty.");
       return {
         isValid: false,
         message: "Usernames cannot be empty."
@@ -44,10 +58,8 @@ export default class LoginValidatorService {
     };
   }
 
-
   checkPassword(value: string): InputValidationMessage {
     if (stringIsEmpty(value)) {
-      Logger.info("Passwords cannot be empty.");
       return {
         isValid: false,
         message: "Passwords cannot be empty."
@@ -55,7 +67,6 @@ export default class LoginValidatorService {
     }
 
     if (!stringContainsAlphabetSequence(value)) {
-      Logger.info("Passwords must include one increasing straight of at least three letters, like abc, cde, fgh,and so on, up to xyz. They cannot skip letters; acd doesn't count.");
       return {
         isValid: false,
         message: "Passwords must include one increasing straight of at least three letters, like abc, cde, fgh,and so on, up to xyz. They cannot skip letters; acd doesn't count."
@@ -63,7 +74,6 @@ export default class LoginValidatorService {
     }
 
     if (value.length > 32) {
-      Logger.info("Passwords cannot be longer than 32 characters.");
       return {
         isValid: false,
         message: "Passwords cannot be longer than 32 characters."
@@ -71,13 +81,11 @@ export default class LoginValidatorService {
     }
 
     if (stringHasUpperCase(value)) {
-      Logger.info("Passwords can only contain lower case characters.");
       return {
         isValid: false,
         message: "Passwords can only contain lower case characters."
       };
     } else if (!stringContainsOnlyLetters(value)) {
-      Logger.info("Passwords can only contain alphabetic characters.");
       return {
         isValid: false,
         message: "Passwords can only contain alphabetic characters."
