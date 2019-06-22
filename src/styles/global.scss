@@ -88,8 +88,14 @@ button {
   -moz-appearance: none;
 }
 
-button:hover {
+button:hover,
+button:focus {
   background: color('dark-blue');
+}
+
+button:focus {
+  outline: 1px solid #color('white');
+  outline-offset: -4px;
 }
 
 button:active {

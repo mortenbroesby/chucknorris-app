@@ -80,11 +80,31 @@
       display: flex;
       flex-flow: column wrap;
       padding: 10px;
-      padding-top: 0px;
+      padding-top: 6px;
+      padding-right: 20px;
+      height: 40px;
 
       .button {
         flex: 1 100%;
         margin-left: 5px;
+
+        &--clearFields {
+          background: none;
+          outline: 1px solid rgba(0, 0, 0, 0.3);
+          font-size: 14px;
+          color: rgba(33, 33, 33, 0.8);
+          width: 40%;
+
+          &:hover,
+          &:focus {
+            background: #0053ba;
+            color: #FFF;
+          }
+        }
+
+        &--submitLogin {
+          width: 60%;
+        }
 
         &:not(:last-child) {
           margin-left: 0px;

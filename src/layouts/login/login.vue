@@ -34,13 +34,13 @@
             <button
               id="clearFields"
               class="button button--clearFields"
-              @click="clearFields">
+              @click="clearFields()">
               Clear fields
             </button>
             <button
               id="submitLogin"
               class="button button--submitLogin"
-              @click="submitLogin">
+              @click="submitLogin()">
               Login
             </button>
           </div>
