@@ -1,4 +1,5 @@
 import Logger from "js-logger";
+import locale from "../locale/en";
 
 import {
   UserCredentials,
@@ -25,7 +26,7 @@ export default class LoginValidatorService {
   /*************************************************/
   checkIfStringIsEmpty(value: string): InputValidationMessage {
     const isEmpty = stringIsEmpty(value);
-    const errorMessage = "Passwords cannot be empty.";
+    const errorMessage = locale.validationErrors.isEmptyPassword;
 
     if (isEmpty) {
       return this.genericErrorMessage(errorMessage);
