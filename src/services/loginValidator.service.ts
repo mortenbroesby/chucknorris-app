@@ -28,10 +28,7 @@ export default class LoginValidatorService {
     const errorMessage = "Passwords cannot be empty.";
 
     if (isEmpty) {
-      return {
-        isValid: false,
-        message: errorMessage
-      };
+      return this.genericErrorMessage(errorMessage);
     }
 
     return this.genericSuccessMessage();
@@ -42,10 +39,7 @@ export default class LoginValidatorService {
     const errorMessage = "Passwords must include one increasing straight of at least three letters, like abc, cde, fgh,and so on, up to xyz. They cannot skip letters; acd doesn't count.";
 
     if (!containsAlphabetSequence) {
-      return {
-        isValid: false,
-        message: errorMessage
-      };
+      return this.genericErrorMessage(errorMessage);
     }
 
     return this.genericSuccessMessage();
@@ -57,10 +51,7 @@ export default class LoginValidatorService {
     const errorMessage = "Passwords may not contain the letters i, O, or l, as these letters can be mistaken for other characters and are therefore confusing.";
 
     if (containsBlacklistedCharacters) {
-      return {
-        isValid: false,
-        message: errorMessage
-      };
+      return this.genericErrorMessage(errorMessage);
     }
 
     return this.genericSuccessMessage();
@@ -71,10 +62,7 @@ export default class LoginValidatorService {
     const errorMessage = "Passwords must contain at least two non-overlapping pairs of letters, like aa, bb, or cc.";
 
     if (!containsOverlappingPairs) {
-      return {
-        isValid: false,
-        message: errorMessage
-      };
+      return this.genericErrorMessage(errorMessage);
     }
 
     return this.genericSuccessMessage();
@@ -86,10 +74,7 @@ export default class LoginValidatorService {
     const errorMessage = "Passwords cannot be longer than 32 characters.";
 
     if (isAboveMax) {
-      return {
-        isValid: false,
-        message: errorMessage
-      };
+      return this.genericErrorMessage(errorMessage);
     }
 
     return this.genericSuccessMessage();
@@ -100,10 +85,7 @@ export default class LoginValidatorService {
     const errorMessage = "Passwords can only contain lower case characters.";
 
     if (hasUppercase) {
-      return {
-        isValid: false,
-        message: errorMessage
-      };
+      return this.genericErrorMessage(errorMessage);
     }
 
     return this.genericSuccessMessage();
@@ -114,10 +96,7 @@ export default class LoginValidatorService {
     const errorMessage = "Passwords can only contain alphabetic characters.";
 
     if (!containsOnlyLetters) {
-      return {
-        isValid: false,
-        message: errorMessage
-      };
+      return this.genericErrorMessage(errorMessage);
     }
 
     return this.genericSuccessMessage();
@@ -224,6 +203,13 @@ export default class LoginValidatorService {
   genericSuccessMessage(): InputValidationMessage {
     return {
       isValid: true
+    };
+  }
+
+  genericErrorMessage(message: string): InputValidationMessage {
+    return {
+      isValid: false,
+      message: message
     };
   }
 }
