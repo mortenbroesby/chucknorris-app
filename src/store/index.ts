@@ -3,6 +3,7 @@ import * as Vuex from "vuex";
 import { UserCredentials } from "../interfaces";
 import { router, RouteName } from "../router";
 import { setItem, getItem, removeItem } from "../utilities";
+import { jokesNamespace, $jokesModule } from "./jokes.module";
 
 Vue.use(Vuex);
 
@@ -115,5 +116,8 @@ const actions = {
 export const $store = new TypedStore({
   state: state,
   mutations: mutations,
-  actions: actions
+  actions: actions,
+  modules: {
+    [jokesNamespace]: $jokesModule
+  }
 });

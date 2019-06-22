@@ -1,6 +1,6 @@
+import Logger from "js-logger";
 import { Component } from "vue-property-decorator";
 import { mixins } from "vue-class-component";
-import Logger from "js-logger";
 import { $store } from "../../store";
 import StoreMixin from "../../mixins/store.mixin";
 

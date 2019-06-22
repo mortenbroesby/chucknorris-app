@@ -34,7 +34,7 @@ export default class Login extends mixins(StoreMixin)  {
   /* COMPUTED'S */
   /*************************************************/
   get userIsAuthenticated(): boolean {
-    return this.state.userIsAuthenticated;
+    return this.rootState.userIsAuthenticated;
   }
 
   get toastIsVisible(): boolean {
