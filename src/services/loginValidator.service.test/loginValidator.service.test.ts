@@ -166,7 +166,7 @@ describe("services/queue.service.ts", () => {
   /*************************************************/
   /* PUBLIC FUNCTIONS */
   /*************************************************/
-  it("Checks credentials correctly for valid password", (done) => {
+  it("Checks credentials correctly for valid username/password", (done) => {
     loginValidator.checkCredentials({
       username: "testUser",
       password: STATIC_VALID_PASSWORD,
@@ -175,6 +175,20 @@ describe("services/queue.service.ts", () => {
       done();
     }).catch((rejection: ErrorToastMessage) => {
       done.fail(new Error("Valid credentials check failed"));
+    });
+  });
+
+  it("Checks credentials correctly for invalid username", (done) => {
+    loginValidator.checkCredentials({
+      username: "",
+      password: STATIC_VALID_PASSWORD,
+    }).then(() => {
+      done.fail(new Error("Invalid credentials check failed"));
+    }).catch((rejection: ErrorToastMessage) => {
+      expect(rejection.inputField).toBe(InputFieldType.username);
+      expect(rejection.validation.isValid).toBe(false);
+      expect(rejection.validation.message).toBe(locale.validationErrors.isEmptyUsername);
+      done();
     });
   });
 
