@@ -59,7 +59,6 @@ export default class Storefront extends mixins(StoreMixin) {
   }
 
   refreshJokes() {
-    this.jokeCollection = new JokeCollectionModel();
     this.fetchJokes();
   }
 
