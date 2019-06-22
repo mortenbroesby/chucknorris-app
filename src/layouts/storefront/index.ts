@@ -35,8 +35,12 @@ export default class Storefront extends mixins(StoreMixin) {
     return this.jokesState.jokeCollection.jokes || [];
   }
 
+  get autoIntervalActive(): boolean {
+    return this.jokesState.autoIntervalActive;
+  }
+
   get autoJokeButtonMessage() {
-    return this.autoAddJokes
+    return this.autoIntervalActive
       ? "Stop adding random joke to favorites every 5 seconds"
       : "Start adding random joke to favorites every 5 seconds";
   }
@@ -58,13 +62,9 @@ export default class Storefront extends mixins(StoreMixin) {
     Logger.info("addToFavorites - joke: ", joke);
   }
 
-  refreshJokes() {
-    this.fetchJokes();
-  }
-
   toggleAutoJokeInterval() {
     Logger.info("toggleAutoJokeInterval");
-    this.autoAddJokes = !this.autoAddJokes;
+    $jokesModule.dispatch("toggleAutoInterval");
   }
 
   logoutUser() {

@@ -1,5 +1,5 @@
 import Logger from "js-logger";
-import { ActionContext, MutationTree } from "vuex";
+import { ActionContext, MutationTree, GetterTree } from "vuex";
 import { RootState } from "../store";
 import { createDispatcher, ModuleDispatcher } from "./utilities";
 
@@ -11,19 +11,25 @@ type JokesContext = ActionContext<JokesState, RootState>;
 
 export interface JokesState {
   jokeCollection: JokeCollectionModel;
+  autoIntervalActive: boolean;
 }
 
 const state: () => JokesState = () => ({
-  jokeCollection: new JokeCollectionModel()
+  jokeCollection: new JokeCollectionModel(),
+  autoIntervalActive: false
 });
 
 export enum JokesMutations {
-  SET_JOKE_COLLECTION = "SET_JOKE_COLLECTION",
+  SET_COLLECTION = "SET_COLLECTION",
+  SET_AUTO_INTERVAL_ACTIVE = "SET_AUTO_INTERVAL_ACTIVE",
 }
 
 const mutations: MutationTree<JokesState> = {
-  [JokesMutations.SET_JOKE_COLLECTION](prevState: JokesState, jokeCollection: JokeCollectionModel) {
+  [JokesMutations.SET_COLLECTION](prevState: JokesState, jokeCollection: JokeCollectionModel) {
     prevState.jokeCollection = jokeCollection;
+  },
+  [JokesMutations.SET_AUTO_INTERVAL_ACTIVE](prevState: JokesState, isActive: boolean) {
+    prevState.autoIntervalActive = isActive;
   },
 };
 
@@ -32,10 +38,25 @@ type Actions = typeof actions;
 const actions = {
   getJokes({ commit }: JokesContext, jokeCollection: number) {
     getJokes(10).then((jokeCollection: JokeCollectionModel) => {
-      commit(JokesMutations.SET_JOKE_COLLECTION, jokeCollection);
+      commit(JokesMutations.SET_COLLECTION, jokeCollection);
     }).catch((error) => {
       Logger.error("getJokes error: ", error);
     });
+  },
+  setAutoIntervalActive({ commit }: JokesContext, isActive: boolean) {
+    commit(JokesMutations.SET_AUTO_INTERVAL_ACTIVE, isActive);
+  },
+  toggleAutoInterval({ commit, state }: JokesContext) {
+    commit(JokesMutations.SET_AUTO_INTERVAL_ACTIVE, !state.autoIntervalActive);
+  },
+};
+
+const getters: GetterTree<JokesState, RootState> = {
+  jokes(state: JokesState) {
+    return state.jokeCollection.jokes || [];
+  },
+  autoIntervalActive(state: JokesState) {
+    return state.autoIntervalActive;
   },
 };
 
@@ -44,5 +65,6 @@ export const $jokesModule: ModuleDispatcher<JokesState, RootState, Actions> = {
   state,
   actions,
   mutations,
+  getters,
   dispatch: createDispatcher<Actions>(jokesNamespace)
 };
