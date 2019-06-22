@@ -12,6 +12,7 @@ import {
   stringContainsOnlyLetters,
   stringContainsAlphabetSequence,
   stringContainsBlacklistedCharacters,
+  stringContainsTwoOverlappingPairs,
 } from "../utilities";
 
 import {
@@ -78,6 +79,13 @@ export default class LoginValidatorService {
       return {
         isValid: false,
         message: "Passwords may not contain the letters i, O, or l, as these letters can be mistaken for other characters and are therefore confusing."
+      };
+    }
+
+    if (!stringContainsTwoOverlappingPairs(value)) {
+      return {
+        isValid: false,
+        message: "Passwords must contain at least two non-overlapping pairs of letters, like aa, bb, or cc."
       };
     }
 

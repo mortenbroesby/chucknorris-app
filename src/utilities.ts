@@ -169,3 +169,22 @@ export function stringContainsBlacklistedCharacters(string: string, blacklistedC
 
   return validString;
 }
+
+export function stringContainsTwoOverlappingPairs(string: string) {
+  let inputString: string = string;
+  let matchCount = 0;
+
+  const alphabet = "abcdefghijklmnopqrstuvwxyz";
+  const explodedAlphabet = alphabet.split("");
+
+  explodedAlphabet.forEach(character => {
+    const characterDoubled = character + character;
+    const inputMatches = inputString.includes(characterDoubled);
+
+    if (inputMatches) {
+      matchCount++;
+    }
+  });
+
+  return matchCount >= 2;
+}
