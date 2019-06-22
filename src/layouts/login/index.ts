@@ -9,12 +9,16 @@ import { InputFieldType } from "../../enums";
 import LoginValidatorService from "../../services/loginValidator.service";
 import { UserCredentials, ErrorToastMessage } from "../../interfaces";
 
+import InputField from "../../components/inputField";
+
 import template from "./login.vue";
 import "./login.scss";
 
 @Component({
   mixins: [template],
-  components: {}
+  components: {
+    InputField
+  }
 })
 export default class Login extends mixins(StoreMixin)  {
   /*************************************************/
@@ -84,6 +88,14 @@ export default class Login extends mixins(StoreMixin)  {
 
   highlightInputField(inputField: InputFieldType) {
     return this.inputFieldWithError === inputField;
+  }
+
+  usernameChanged(value: string) {
+    this.username = value || "";
+  }
+
+  passwordChanged(value: string) {
+    this.password = value || "";
   }
 
   submitLogin() {

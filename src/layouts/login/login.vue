@@ -12,22 +12,22 @@
           </div>
 
           <div class="inputContainer">
-            <input
+            <input-field
               id="inputUsername"
-              class="input input--username"
-              :class="{ highlight: highlightInputField('username') }"
               type="username"
-              v-model="username"
               placeholder="Your username."
-            />
-            <input
+              :value="username"
+              :isHighlighted="highlightInputField('username')"
+              @onChange="usernameChanged">
+            </input-field>
+            <input-field
               id="inputPassword"
-              class="input input--password"
-              :class="{ highlight: highlightInputField('password') }"
               type="password"
-              v-model="password"
               placeholder="Your password."
-            />
+              :value="password"
+              :isHighlighted="highlightInputField('password')"
+              @onChange="passwordChanged">
+            </input-field>
           </div>
 
           <div class="buttonContainer">
