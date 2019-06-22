@@ -10,6 +10,7 @@ import LoginValidatorService from "../../services/loginValidator.service";
 import { UserCredentials, ErrorToastMessage } from "../../interfaces";
 
 import InputField from "../../components/inputField";
+import ToastMessage from "../../components/toastMessage";
 
 import template from "./login.vue";
 import "./login.scss";
@@ -17,7 +18,8 @@ import "./login.scss";
 @Component({
   mixins: [template],
   components: {
-    InputField
+    InputField,
+    ToastMessage,
   }
 })
 export default class Login extends mixins(StoreMixin)  {
@@ -90,12 +92,12 @@ export default class Login extends mixins(StoreMixin)  {
     return this.inputFieldWithError === inputField;
   }
 
-  usernameChanged(value: string) {
-    this.username = value || "";
+  usernameChanged(value: string = "") {
+    this.username = value;
   }
 
-  passwordChanged(value: string) {
-    this.password = value || "";
+  passwordChanged(value: string = "") {
+    this.password = value;
   }
 
   submitLogin() {

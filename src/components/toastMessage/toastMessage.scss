@@ -1,0 +1,36 @@
+.toastMessage {
+  $max-width: 400px;
+  position: relative;
+  max-width: $max-width;
+
+  .fadeToast-enter {
+    opacity: 0;
+  }
+
+  .fadeToast-enter-active,
+  .fadeToast-leave-active {
+    transition: 330ms all ease;
+  }
+
+  .fadeToast-leave-to {
+    opacity: 0;
+  }
+
+  .toastItem {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: $max-width;
+    max-width: $max-width;
+    padding: 10px;
+
+    &--title {
+      font-size: 16px;
+      font-weight: 600;
+    }
+
+    &--message {
+      line-height: 1.5;
+    }
+  }
+}
