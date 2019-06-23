@@ -107,6 +107,11 @@ export default class Storefront extends mixins(StoreMixin) {
   }
 
   logoutUser() {
-    $store.dispatch("logoutUser");
+    // Simulate load to API.
+    $store.dispatch("setSpinner", true);
+    setTimeout(() => {
+      $store.dispatch("logoutUser");
+      $store.dispatch("setSpinner", false);
+    }, 660);
   }
 }

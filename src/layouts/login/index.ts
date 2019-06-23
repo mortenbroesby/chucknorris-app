@@ -105,10 +105,12 @@ export default class Login extends mixins(StoreMixin)  {
       username: this.username,
       password: this.password,
     }).then((credentials: UserCredentials) => {
-      Logger.info("Store credentials: ", credentials);
+      // Simulate load to API.
+      $store.dispatch("setSpinner", true);
       setTimeout(() => {
         $store.dispatch("loginUser", credentials);
-      }, 1000);
+        $store.dispatch("setSpinner", false);
+      }, 660);
     }).catch((rejection: ErrorToastMessage) => {
       this.setInputFieldHighlight(rejection.inputField);
       this.addToastMessage(rejection.validation.message || "");

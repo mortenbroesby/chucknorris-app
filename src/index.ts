@@ -75,8 +75,8 @@ function initialiseApplication() {
     /* METHODS */
     /*************************************************/
     initialiseApplication() {
+      // Simulate load to API.
       $store.dispatch("setSpinner", true);
-
       $store.dispatch("initialise").then(() => {
         Logger.info("Application initialised.");
         $store.dispatch("setSpinner", false);
