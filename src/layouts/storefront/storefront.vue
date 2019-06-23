@@ -21,11 +21,11 @@
               <button
                 id="fetchJokes"
                 :class="[
-                  `${jokesVisible ? 'button' : 'buttonLarge'}`,
-                  `${jokesVisible ? 'button' : 'buttonLarge'}--fetchJokes`
+                  `${!noJokesVisible ? 'button' : 'buttonLarge'}`,
+                  `${!noJokesVisible ? 'button' : 'buttonLarge'}--fetchJokes`
                 ]"
                 @click="fetchJokes">
-                <i class="material-icons" v-if="jokesVisible">refresh</i>
+                <i class="material-icons" v-if="!noJokesVisible">refresh</i>
                 {{ fetchJokesButtonMessage }}
               </button>
               <button
