@@ -64,7 +64,7 @@
     "hooks": {
       "prepare-commit-msg": "node scripts/prepare-commit-message.js",
       "commit-msg": "node scripts/lint-commit-message.js",
-      "pre-commit": "npm run unit"
+      "pre-push": "npm run unit"
     }
   }
 }
