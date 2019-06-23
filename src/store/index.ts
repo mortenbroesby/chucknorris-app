@@ -35,6 +35,7 @@ export interface RootState {
 
   // Popups
   loginPopupVisible: boolean;
+  favoritesLimitPopupVisible: boolean;
 
   // Authentication
   userIsAuthenticated: boolean;
@@ -48,6 +49,7 @@ export const state: RootState = {
 
   // Popups
   loginPopupVisible: false,
+  favoritesLimitPopupVisible: false,
 
  // Authentication
   userIsAuthenticated: false,
@@ -66,6 +68,9 @@ const mutations = {
   },
   SET_LOGIN_POPUP_VISIBILITY(prevState: RootState, isVisible: boolean) {
     prevState.loginPopupVisible = isVisible;
+  },
+  SET_FAVORITES_LIMIT_POPUP_VISIBILITY(prevState: RootState, isVisible: boolean) {
+    prevState.favoritesLimitPopupVisible = isVisible;
   },
   SET_USER_AUTHENTICATED(prevState: RootState, isAuthenticated: boolean): void {
     prevState.userIsAuthenticated = isAuthenticated;
@@ -100,6 +105,9 @@ const actions = {
   },
   setLoginPopupVisible({ commit }: Context, isVisible: boolean): void {
     commit("SET_LOGIN_POPUP_VISIBILITY", isVisible);
+  },
+  setFavoritesLimitPopupVisible({ commit }: Context, isVisible: boolean): void {
+    commit("SET_FAVORITES_LIMIT_POPUP_VISIBILITY", isVisible);
   },
   setUserAuthenticated({ commit }: Context, authenticationState: boolean): void {
     commit("SET_USER_AUTHENTICATED", authenticationState);

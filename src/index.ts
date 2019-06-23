@@ -15,6 +15,8 @@ Vue.config.productionTip = false;
 Vue.config.devtools = true;
 Vue.config.performance = true;
 
+import { COUNT_FAVORITES_LIMIT } from "./store/jokes.module";
+
 // Import components
 import App from "./App.vue";
 
@@ -70,6 +72,14 @@ function initialiseApplication() {
       return this.store.loginPopupVisible;
     }
 
+    get favoritesLimitPopupVisible(): boolean {
+      return this.store.favoritesLimitPopupVisible;
+    }
+
+    get favoritesLimitCount(): number {
+      return COUNT_FAVORITES_LIMIT;
+    }
+
     /*************************************************/
     /* METHODS */
     /*************************************************/
@@ -84,6 +94,10 @@ function initialiseApplication() {
 
     closeLoginPopup() {
       $store.dispatch("setLoginPopupVisible", false);
+    }
+
+    closeFavoritesLimitPopup() {
+      $store.dispatch("setFavoritesLimitPopupVisible", false);
     }
   }
 

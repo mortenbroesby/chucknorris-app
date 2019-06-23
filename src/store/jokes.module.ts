@@ -1,7 +1,7 @@
 import Logger from "js-logger";
 import { ActionContext, MutationTree, GetterTree } from "vuex";
 
-import { RootState } from "../store";
+import { RootState, $store } from "../store";
 import { createDispatcher, ModuleDispatcher } from "./utilities";
 import { setItem, getItem, removeItem } from "../utilities";
 
@@ -12,7 +12,7 @@ import { JokeModel } from "../models/joke.model";
 export const jokesNamespace = "jokeModule";
 type JokesContext = ActionContext<JokesState, RootState>;
 
-const COUNT_FAVORITES_LIMIT = 10;
+export const COUNT_FAVORITES_LIMIT = 10;
 const COUNT_JOKES_TO_FETCH_TO_STOREFRONT = 10;
 const COUNT_JOKES_TO_FETCH_TO_CACHE = 20;
 const COUNT_REFRESH_INTERVAL_IN_SECONDS = 5;
@@ -65,7 +65,7 @@ const mutations: MutationTree<JokesState> = {
       prevState.jokeCollection.jokes = prevState.jokeCollection.jokes.filter(collectionItem => collectionItem.id !== joke.id);
       setItem("userFavoriteJokes", prevState.favorites);
     } else {
-      alert(`You've reached your limit of ${COUNT_FAVORITES_LIMIT} jokes.`);
+      $store.dispatch("setFavoritesLimitPopupVisible", true);
     }
   },
   [JokesMutations.REMOVE_FROM_FAVORITES](prevState: JokesState, joke: JokeModel) {
@@ -173,7 +173,7 @@ const actions = {
         }
       });
     } else {
-      alert(`You've reached your limit of ${COUNT_FAVORITES_LIMIT} jokes.`);
+      $store.dispatch("setFavoritesLimitPopupVisible", true);
     }
   },
   removeFromFavorites({ commit }: JokesContext, joke: JokeModel) {

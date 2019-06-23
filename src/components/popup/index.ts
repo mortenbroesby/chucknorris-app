@@ -1,10 +1,9 @@
 import Vue from "vue";
 import { Component, Prop } from "vue-property-decorator";
 
-import { $store } from "../../store";
-
 import template from "./popup.vue";
 import "./popup.scss";
+
 
 @Component({
   mixins: [template],

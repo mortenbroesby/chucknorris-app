@@ -1,7 +1,7 @@
 @import "../../styles/global.scss";
 
 .popup {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
@@ -24,6 +24,14 @@
       width: 560px;
       max-width: 660px;
       height: 500px;
+    }
+  }
+
+  &--favoritesLimitReached {
+    .popup-inner {
+      width: 560px;
+      max-width: 660px;
+      height: 200px;
     }
   }
 
