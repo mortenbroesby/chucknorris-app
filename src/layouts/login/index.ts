@@ -4,6 +4,7 @@ import { Component, Watch } from "vue-property-decorator";
 import StoreMixin from "../../mixins/store.mixin";
 import { $store } from "../../store";
 import { InputFieldType } from "../../enums";
+import locale from "../../locale/en";
 
 import LoginValidatorService from "../../services/loginValidator.service";
 import { UserCredentials, ErrorToastMessage } from "../../interfaces";
@@ -39,6 +40,16 @@ export default class Login extends mixins(StoreMixin)  {
   /*************************************************/
   get userIsAuthenticated(): boolean {
     return this.rootState.userIsAuthenticated;
+  }
+
+  get ruleSet() {
+    return [
+      locale.validationErrors.containsAlphabetSequence,
+      locale.validationErrors.containsOverlappingPairs,
+      locale.validationErrors.isAboveMaxLength,
+      locale.validationErrors.hasUppercase,
+      locale.validationErrors.containsOnlyLetters,
+    ];
   }
 
   /*************************************************/

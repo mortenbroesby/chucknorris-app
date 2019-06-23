@@ -5,6 +5,7 @@ $font-family-global: Roboto, $font-family-fallback;
 $colors: (
   'background':     rgba(233, 233, 233, 1),
   'grey':           rgba(33, 33, 33, 0.2),
+  'dark-grey':           rgba(33, 33, 33, 0.8),
   'black':          rgba(0, 0, 0, 1),
   'white':          rgba(255, 255, 255, 1),
   'blue':             #0053ba,
@@ -123,4 +124,8 @@ html {
   -webkit-font-smoothing: antialiased;
   -webkit-text-shadow: rgba(0, 0, 0, 0.01) 0 0 1px;
   text-shadow: rgba(0, 0, 0, 0.01) 0 0 1px;
+}
+
+ul {
+  padding-left: 20px;
 }

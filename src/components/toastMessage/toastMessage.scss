@@ -1,8 +1,10 @@
-$max-width: 400px;
+@import "../../styles/global.scss";
+
+$max-width: 440px;
 
 .toastMessage {
   position: absolute;
-  bottom: -120px;
+  bottom: -150px;
   left: 0;
 
   .toastMessage--inner {
@@ -33,6 +35,7 @@ $max-width: 400px;
     width: $max-width;
     max-width: $max-width;
     padding: 10px;
+    color: color('dark-grey');
 
     &--title {
       font-size: 16px;

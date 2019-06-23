@@ -1,6 +1,6 @@
 @import "../../styles/global.scss";
 
-$max-width: 400px;
+$max-width: 440px;
 
 .login {
   position: relative;
@@ -18,7 +18,7 @@ $max-width: 400px;
   }
 
   .loginForm {
-    margin-top: -60px;
+    margin-top: -130px;
     position: absolute;
     display: flex;
     flex-flow: row wrap;
@@ -91,6 +91,36 @@ $max-width: 400px;
           margin-left: 0px;
           margin-right: 5px;
         }
+      }
+    }
+  }
+
+  .ruleSet-container {
+    position: absolute;
+    bottom: -240px;
+    left: 0;
+
+    .ruleSet-inner {
+      position: relative;
+      width: $max-width;
+      max-width: $max-width;
+      height: 100px;
+      display: inline-block;
+      padding: 10px;
+    }
+
+    .ruleSet {
+      &:not(:last-child) {
+        padding-bottom: 6px;
+      }
+
+      .rule {
+        font-size: 11px;
+        line-height: 1.5;
+        color: color('dark-grey');
+        letter-spacing: 0.1px;
+        margin: 0;
+        padding: 0;
       }
     }
   }
