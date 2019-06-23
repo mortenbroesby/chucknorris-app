@@ -118,7 +118,7 @@ function migrateStoredData(storageItem: StorageItem) {
 }
 
 /*************************************************/
-/* GENERIC UTILITY FUNCTIONS */
+/* UTILITY FUNCTIONS */
 /*************************************************/
 export function stringIsEmpty(string: string) {
   return (!string || 0 === string.length);
