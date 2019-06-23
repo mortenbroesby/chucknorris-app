@@ -26,4 +26,3 @@ config = {
 };
 
 export default config;
-

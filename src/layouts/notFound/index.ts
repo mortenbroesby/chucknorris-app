@@ -1,5 +1,6 @@
 import Vue from "vue";
 import { Component } from "vue-property-decorator";
+
 import { RouteName } from "../../router";
 
 import template from "./notFound.vue";

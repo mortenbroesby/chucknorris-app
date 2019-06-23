@@ -1,5 +1,6 @@
 import Vue from "vue";
 import { Component, Prop } from "vue-property-decorator";
+
 import { List } from "../../interfaces";
 
 import template from "./listView.vue";

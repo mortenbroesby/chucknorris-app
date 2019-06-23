@@ -1,7 +1,6 @@
 import Vue from "vue";
 import * as Vuex from "vuex";
 import { UserCredentials } from "../interfaces";
-import { router, RouteName } from "../router";
 import { setItem, getItem, removeItem } from "../utilities";
 import { jokesNamespace, $jokesModule } from "./jokes.module";
 
@@ -77,15 +76,15 @@ const mutations = {
 };
 
 const actions = {
-  initialise({ dispatch, commit }: Context): Promise<void> {
-    return new Promise((resolve) => {
-      const savedCredentials = getItem("userCredentials");
-      if (savedCredentials) {
-        dispatch("loginUser", savedCredentials);
-      } else {
-        dispatch("setPopupVisible", true);
-      }
+  initialise({ dispatch }: Context): Promise<void> {
+    const savedCredentials = getItem("userCredentials");
+    if (savedCredentials) {
+      dispatch("loginUser", savedCredentials);
+    } else {
+      dispatch("setPopupVisible", true);
+    }
 
+    return new Promise((resolve) => {
       // Simulate load to API.
       setTimeout(() => {
         dispatch("setApplicationInitialised", true);

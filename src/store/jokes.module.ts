@@ -1,5 +1,6 @@
 import Logger from "js-logger";
 import { ActionContext, MutationTree, GetterTree } from "vuex";
+
 import { RootState } from "../store";
 import { createDispatcher, ModuleDispatcher } from "./utilities";
 import { setItem, getItem, removeItem } from "../utilities";

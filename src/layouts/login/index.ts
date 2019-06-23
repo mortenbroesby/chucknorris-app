@@ -1,8 +1,7 @@
-import Logger from "js-logger";
 import { mixins } from "vue-class-component";
 import { Component, Watch } from "vue-property-decorator";
-import StoreMixin from "../../mixins/store.mixin";
 
+import StoreMixin from "../../mixins/store.mixin";
 import { $store } from "../../store";
 import { InputFieldType } from "../../enums";
 

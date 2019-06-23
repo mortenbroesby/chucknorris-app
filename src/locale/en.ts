@@ -1,4 +1,4 @@
-let locale = {
+const locale = {
   validationErrors: {
     isEmptyUsername: "Usernames cannot be empty.",
     isEmptyPassword: "Passwords cannot be empty.",
@@ -12,4 +12,3 @@ let locale = {
 };
 
 export default locale;
-

@@ -1,7 +1,4 @@
-export enum JokeCategory {
-  nerdy = "nerdy",
-  explicit = "explicit",
-}
+import { JokeCategory } from "../enums";
 
 export class JokeModel {
   id: string = "";

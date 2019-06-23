@@ -1,4 +1,3 @@
-import Logger from "js-logger";
 import locale from "../locale/en";
 
 import {
