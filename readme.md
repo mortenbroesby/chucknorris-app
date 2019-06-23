@@ -18,14 +18,15 @@ To allow the user to retain his session, a login form is displayed.
 _Note: In the trial period, anonymous users can favorite as well. This is subject to change at any time_.
 
 The login form fields has the following rules:
-- Username cannot be empty.
-- Password cannot be empty.
-- Passwords must include one increasing straight of at least three letters, like abc, cde, fgh,and so on, up to xyz. They cannot skip letters; acd doesn't count.
-- Passwords may not contain the letters i, O, or l, as these letters can be mistaken for other characters and are therefore confusing.
-- Passwords must contain at least two non-overlapping pairs of letters, like aa, bb, or cc.
-- Passwords cannot be longer than 32 characters.
-- Passwords can only contain lower case characters.
-- Passwords can only contain alphabetic characters.
+
+* Username cannot be empty.
+* Password cannot be empty.
+* Passwords must include one increasing straight of at least three letters, like abc, cde, fgh,and so on, up to xyz. They cannot skip letters; acd doesn't count.
+* Passwords may not contain the letters i, O, or l, as these letters can be mistaken for other characters and are therefore confusing.
+* Passwords must contain at least two non-overlapping pairs of letters, like aa, bb, or cc.
+* Passwords cannot be longer than 32 characters.
+* Passwords can only contain lower case characters.
+* Passwords can only contain alphabetic characters.
 
 When the user is logged in successfully, his session is retained in local-storage, and used when reloading the application from cold boot (refresh).
 
