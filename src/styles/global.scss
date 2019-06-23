@@ -22,9 +22,8 @@ $main-application-background: map-get($colors, 'background');
 
 /* Z-index landscape */
 $z-index: (
-  spinner             : 50,
-  popup               : 40,
-  base                : 15,
+  spinner             : 100,
+  popup               : 50,
   root                : 0,
   behind              : -1,
 );
@@ -39,13 +38,27 @@ $z-index: (
 
 html,
 body {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  padding: 0;
+  margin: 0;
   font-family: $font-family-global;
   font-size: 14px;
   letter-spacing: 1px;
   line-height: 1;
   color: color('black');
   background-color: color('background');
+  @include z-index(root);
 }
+
+html {
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+
 
 .material-icons {
   font-family: 'Material Icons';
