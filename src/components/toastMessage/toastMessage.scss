@@ -22,15 +22,16 @@ $max-width: 440px;
     width: $max-width;
     max-width: $max-width;
     padding: 10px;
-    color: color('dark-grey');
 
     &--title {
       font-size: 16px;
       font-weight: 600;
+      color: color('black');
     }
 
     &--message {
       line-height: 1.5;
+      color: color('dark-grey');
     }
   }
 }

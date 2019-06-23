@@ -45,6 +45,7 @@ export default class Login extends mixins(StoreMixin)  {
   get ruleSet() {
     return [
       locale.validationErrors.containsAlphabetSequence,
+      locale.validationErrors.containsBlacklistedCharacters,
       locale.validationErrors.containsOverlappingPairs,
       locale.validationErrors.isAboveMaxLength,
       locale.validationErrors.hasUppercase,
