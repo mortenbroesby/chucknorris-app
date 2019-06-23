@@ -57,7 +57,7 @@ export default class Storefront extends mixins(StoreMixin) {
   get autoJokeButtonMessage() {
     return this.autoIntervalActive
       ? "Stop automatically marking jokes as favorites. Start reading jokes!"
-      : "Start with automatically marking jokes as favorites every 5 sec. Why not?";
+      : "Start automatically marking jokes as favorites every 5 sec. Why not?";
   }
 
   get jokesVisible() {
