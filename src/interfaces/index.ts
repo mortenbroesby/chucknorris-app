@@ -21,3 +21,7 @@ export interface InputValidationMessage {
 export interface List {
   message: string;
 }
+
+export interface Validator {
+  [key: string]: InputValidationMessage;
+}

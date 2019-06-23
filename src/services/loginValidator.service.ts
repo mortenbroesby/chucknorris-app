@@ -1,9 +1,9 @@
 import locale from "../locale/en";
-
 import {
   UserCredentials,
   InputValidationMessage,
   ErrorToastMessage,
+  Validator,
 } from "../interfaces";
 
 import {
@@ -115,39 +115,21 @@ export default class LoginValidatorService {
   }
 
   checkPassword(value: string): InputValidationMessage {
-    const validationEmpty = this.checkIfStringIsEmpty(value);
-    if (!validationEmpty.isValid) {
-      return validationEmpty;
-    }
+    const validatorRules: Validator = {
+      isEmptyPassword: this.checkIfStringIsEmpty(value),
+      containsAlphabetSequence: this.checkIfStringContainsAlphabetSequence(value),
+      containsBlacklistedCharacters: this.checkIfStringContainsBlacklistedCharacters(value),
+      containsOverlappingPairs: this.checkIfStringContainsTwoOverlappingPairs(value),
+      isAboveMaxLength: this.checkIfStringIsAboveMaxLength(value),
+      hasUppercase: this.checkIfStringHasUpperCase(value),
+      containsOnlyLetters: this.checkIfStringContainsOnlyLetters(value),
+    };
 
-    const validationAlphabetSequence = this.checkIfStringContainsAlphabetSequence(value);
-    if (!validationAlphabetSequence.isValid) {
-      return validationAlphabetSequence;
-    }
-
-    const validationBlacklistedCharacters = this.checkIfStringContainsBlacklistedCharacters(value);
-    if (!validationBlacklistedCharacters.isValid) {
-      return validationBlacklistedCharacters;
-    }
-
-    const validationOverlappingPairs = this.checkIfStringContainsTwoOverlappingPairs(value);
-    if (!validationOverlappingPairs.isValid) {
-      return validationOverlappingPairs;
-    }
-
-    const validationOverMaxLength = this.checkIfStringIsAboveMaxLength(value);
-    if (!validationOverMaxLength.isValid) {
-      return validationOverMaxLength;
-    }
-
-    const validationHasUppercase = this.checkIfStringHasUpperCase(value);
-    if (!validationHasUppercase.isValid) {
-      return validationHasUppercase;
-    }
-
-    const validationContainsOnlyLetters = this.checkIfStringContainsOnlyLetters(value);
-    if (!validationContainsOnlyLetters.isValid) {
-      return validationContainsOnlyLetters;
+    for (const key in validatorRules) {
+      const validation: InputValidationMessage = validatorRules[key];
+      if (validation.isValid === false) {
+        return validation;
+      }
     }
 
     return this.genericSuccessMessage();
