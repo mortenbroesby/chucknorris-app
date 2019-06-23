@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`components/toastMessage should have correct rendering 1`] = `
+<div
+  class="toastMessage"
+>
+  <div
+    class="toastMessage--inner"
+  >
+    <div
+      class="toastItem"
+      name="fadeToast"
+      style="display: none;"
+    >
+      <p
+        class="toastItem--title"
+      >
+        Note:
+      </p>
+       
+      <p
+        class="toastItem--message"
+      >
+        
+      </p>
+    </div>
+  </div>
+</div>
+`;
