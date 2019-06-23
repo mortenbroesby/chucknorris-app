@@ -1,0 +1,65 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`components/listView should have correct default rendering 1`] = `
+<div
+  class="listView"
+>
+  <h5
+    class="title"
+  >
+    Title 1
+  </h5>
+   
+</div>
+`;
+
+exports[`components/listView should have correct rendering with actual data 1`] = `
+<div
+  class="listView"
+>
+  <h5
+    class="title"
+  >
+    Title 2
+  </h5>
+   
+  <div
+    class="listView--item"
+  >
+    <p
+      class="listView--message"
+    >
+      Message 1
+    </p>
+     
+    <button
+      class="listView--button"
+    >
+      <i
+        class="material-icons"
+      >
+        favorite
+      </i>
+    </button>
+  </div>
+  <div
+    class="listView--item"
+  >
+    <p
+      class="listView--message"
+    >
+      Message 2
+    </p>
+     
+    <button
+      class="listView--button"
+    >
+      <i
+        class="material-icons"
+      >
+        favorite
+      </i>
+    </button>
+  </div>
+</div>
+`;
