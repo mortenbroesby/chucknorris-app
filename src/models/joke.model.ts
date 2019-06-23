@@ -19,7 +19,6 @@ export class JokeModel {
       }
 
       if (metadata.categories) {
-        // TODO: enum lookup validation.
         this.categories = metadata.categories;
       }
     }
