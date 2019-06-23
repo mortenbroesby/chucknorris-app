@@ -86,11 +86,11 @@ const actions = {
         dispatch("setPopupVisible", true);
       }
 
-      // Load async data, etc.
+      // Simulate load to API.
       setTimeout(() => {
         dispatch("setApplicationInitialised", true);
         resolve();
-      }, 1000);
+      }, 660);
     });
   },
   setApplicationInitialised({ commit }: Context, hasInitialised: boolean) {
