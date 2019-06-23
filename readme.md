@@ -58,6 +58,8 @@ See here for more information: [https://parceljs.org/getting_started.html](https
 ---
 
 ## Future considerations
+- Ensure application is responsive and adaptive, e.g. for mobile devices or large screens.
 - Further atomise components where applicable.
+- Create more re-usable popup handling.
 - Add end-to-end tests using Cypress.
 - Increase unit test code coverage.
