@@ -23,7 +23,7 @@ function check(message, cb) {
 }
 
 check("Whitespace at beginning of message", m => /^\s/.test(m));
-check("Title is too long. limit to 72 chars", m => m.trim().split(/\r?\n/, 1)[0].length > 72);
+check("Title is too long. limit to 100 characters", m => m.trim().split(/\r?\n/, 1)[0].length > 100);
 check("Title and body must be separated by a blank line", m => {
   const s = m.trim().split(/\r?\n/, 3);
   return s[1] != null && !!s[1].length;
