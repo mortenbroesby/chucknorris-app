@@ -15,19 +15,6 @@ $max-width: 440px;
     display: inline-block;
   }
 
-  .fadeToast-enter {
-    opacity: 0;
-  }
-
-  .fadeToast-enter-active,
-  .fadeToast-leave-active {
-    transition: 330ms all ease;
-  }
-
-  .fadeToast-leave-to {
-    opacity: 0;
-  }
-
   .toastItem {
     position: absolute;
     top: 0;
