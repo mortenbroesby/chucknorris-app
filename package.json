@@ -11,7 +11,7 @@
     "clean": "rimraf .cache/ && rimraf dist/ && rimraf build/",
     "unit": "jest --config test/unit/jest.config.js --coverage",
     "unitWatch": "jest --config test/unit/jest.config.js --watch",
-    "unitClean": "npm run unit -- -u"
+    "unitClean": "npm run unitWatch -- -u"
   },
   "keywords": [
     "vue",
