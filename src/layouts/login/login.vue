@@ -47,7 +47,7 @@
           </toast-message>
 
           <div class="ruleSet-container" v-if="!toastMessageVisible">
-            <l class="ruleSet-inner">
+            <div class="ruleSet-inner">
               <p class="title">Security requirements:</p>
               <ul>
                 <li class="ruleSet" v-for="(rule, index) in ruleSet" :key="index">
