@@ -4,18 +4,9 @@
 
     <div class="logoutUserContainer">
       <button
-        v-if="!userIsAuthenticated"
-        id="showLogin"
-        class="button button--showLogin"
-        @click="showLogin">
-        Login
-      </button>
-      <button
-        v-else
-        id="logoutUser"
-        class="button button--logoutUser"
-        @click="logoutUser">
-        Logout
+        class="button"
+        @click="userIsAuthenticated ? logoutUser() : showLogin()">
+        {{ userIsAuthenticated ? 'Logout' : 'Login' }}
       </button>
     </div>
 
@@ -26,11 +17,15 @@
           <h1 class="title title--bold">Chuck Norris</h1>
 
           <div class="actions">
-            <div class="buttonContainer" v-if="jokesVisible">
+            <div class="buttonContainer">
               <button
                 id="fetchJokes"
-                class="button button--fetchJokes"
+                :class="[
+                  `${jokesVisible ? 'button' : 'buttonLarge'}`,
+                  `${jokesVisible ? 'button' : 'buttonLarge'}--fetchJokes`
+                ]"
                 @click="fetchJokes">
+                <i class="material-icons" v-if="jokesVisible">refresh</i>
                 {{ fetchJokesButtonMessage }}
               </button>
               <button
@@ -38,15 +33,8 @@
                 id="toggleAutoJokeInterval"
                 class="button button--toggleAutoJokeInterval"
                 @click="toggleAutoJokeInterval">
-                <i class="material-icons">{{ autoIntervalActive ? 'cancel' : 'av_timer' }}</i> {{ autoJokeButtonMessage }}
-              </button>
-            </div>
-            <div class="buttonContainer" v-else>
-              <button
-                id="fetchJokes"
-                class="buttonLarge buttonLarge--fetchJokes"
-                @click="fetchJokes">
-                {{ fetchJokesButtonMessage }}
+                <i class="material-icons">{{ autoIntervalActive ? 'cancel' : 'av_timer' }}</i>
+                {{ autoJokeButtonMessage }}
               </button>
             </div>
           </div>

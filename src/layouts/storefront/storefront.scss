@@ -42,7 +42,7 @@
 
     .button {
       background: none;
-      outline: 1px solid rgba(0, 0, 0, 0.4);
+      outline: 1px solid color("grey");
       font-size: 14px;
       padding: 10px 14px;
       color: rgba(33, 33, 33, 0.8);
@@ -108,7 +108,7 @@
         margin-left: 5px;
 
         background: black;
-        outline: 1px solid rgba(0, 0, 0, 0.4);
+        outline: 1px solid color("grey");
         font-size: 14px;
         padding: 10px 14px;
         color: white;
@@ -116,12 +116,23 @@
         &--toggleAutoJokeInterval {
           background: none;
           color: black;
+
+          & > * {
+            color: black !important;
+          }
+
+          &:hover,
+          &:focus {
+            & > * {
+              color: #FFF !important;
+            }
+          }
         }
 
         & > * {
           vertical-align: middle;
           line-height: 0.5;
-          color: black;
+          color: white;
           margin-right: 10px;
         }
 
