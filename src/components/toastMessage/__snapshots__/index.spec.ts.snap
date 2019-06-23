@@ -9,7 +9,6 @@ exports[`components/toastMessage should have correct rendering 1`] = `
   >
     <div
       class="toastItem"
-      name="fadeToast"
       style="display: none;"
     >
       <p
