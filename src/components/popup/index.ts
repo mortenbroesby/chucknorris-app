@@ -21,7 +21,7 @@ export default class Popup extends Vue {
   /* METHODS */
   /*************************************************/
   closePopup() {
-    $store.dispatch("setPopupVisible", false);
+    this.$emit("closePopup");
   }
 
   /*************************************************/
@@ -47,7 +47,7 @@ export default class Popup extends Vue {
     const isClickInside = element && element.contains(event.target);
 
     if (!isClickInside) {
-      $store.dispatch("setPopupVisible", false);
+      this.$emit("closePopup");
     }
   }
 
@@ -55,7 +55,7 @@ export default class Popup extends Vue {
     const isEscape = "key" in event && (event.key == "Escape" || event.key == "Esc") ? true : false;
 
     if (isEscape) {
-      $store.dispatch("setPopupVisible", false);
+      this.$emit("closePopup");
     }
   }
 }

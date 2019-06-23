@@ -103,7 +103,7 @@ export default class Storefront extends mixins(StoreMixin) {
   }
 
   showLogin() {
-    $store.dispatch("setPopupVisible", true);
+    $store.dispatch("setLoginPopupVisible", true);
   }
 
   logoutUser() {

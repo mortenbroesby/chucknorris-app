@@ -66,8 +66,8 @@ function initialiseApplication() {
       return this.store.userIsAuthenticated;
     }
 
-    get popupIsVisible(): boolean {
-      return this.store.popupVisible;
+    get loginPopupVisible(): boolean {
+      return this.store.loginPopupVisible;
     }
 
     /*************************************************/
@@ -80,6 +80,10 @@ function initialiseApplication() {
         Logger.info("Application initialised.");
         $store.dispatch("setSpinner", false);
       });
+    }
+
+    closeLoginPopup() {
+      $store.dispatch("setLoginPopupVisible", false);
     }
   }
 

@@ -33,12 +33,12 @@ export interface RootState {
   applicationHasLoaded: boolean;
   spinnerVisible: boolean;
 
- // Authentication
- userIsAuthenticated: boolean;
- userCredentials: UserCredentials;
+  // Popups
+  loginPopupVisible: boolean;
 
- // Popup
- popupVisible: boolean;
+  // Authentication
+  userIsAuthenticated: boolean;
+  userCredentials: UserCredentials;
 }
 
 export const state: RootState = {
@@ -46,8 +46,8 @@ export const state: RootState = {
   applicationHasLoaded: false,
   spinnerVisible: false,
 
-  // Popup
-  popupVisible: false,
+  // Popups
+  loginPopupVisible: false,
 
  // Authentication
   userIsAuthenticated: false,
@@ -64,8 +64,8 @@ const mutations = {
   SET_SPINNER_VISIBILITY(prevState: RootState, isVisible: boolean): void {
     prevState.spinnerVisible = isVisible;
   },
-  SET_POPUP_VISIBILITY(prevState: RootState, isVisible: boolean) {
-    prevState.popupVisible = isVisible;
+  SET_LOGIN_POPUP_VISIBILITY(prevState: RootState, isVisible: boolean) {
+    prevState.loginPopupVisible = isVisible;
   },
   SET_USER_AUTHENTICATED(prevState: RootState, isAuthenticated: boolean): void {
     prevState.userIsAuthenticated = isAuthenticated;
@@ -81,7 +81,7 @@ const actions = {
     if (savedCredentials) {
       dispatch("loginUser", savedCredentials);
     } else {
-      dispatch("setPopupVisible", true);
+      dispatch("setLoginPopupVisible", true);
     }
 
     return new Promise((resolve) => {
@@ -98,8 +98,8 @@ const actions = {
   setSpinner({ commit }: Context, isVisible: boolean): void {
     commit("SET_SPINNER_VISIBILITY", isVisible);
   },
-  setPopupVisible({ commit }: Context, isVisible: boolean): void {
-    commit("SET_POPUP_VISIBILITY", isVisible);
+  setLoginPopupVisible({ commit }: Context, isVisible: boolean): void {
+    commit("SET_LOGIN_POPUP_VISIBILITY", isVisible);
   },
   setUserAuthenticated({ commit }: Context, authenticationState: boolean): void {
     commit("SET_USER_AUTHENTICATED", authenticationState);
