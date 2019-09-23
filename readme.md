@@ -10,12 +10,12 @@ Jest is used to unit test core component(s).
 
 ### About the application itself
 
-The application is a platform that gives the user the ability to consume Chuck Norris jokes. He can also favorite items - up to a limit of 10.
-Should he be lazy, there's an auto-favorite button as well.
+The application is a platform that gives you the ability to consume Chuck Norris jokes.
+You can also favorite items - up to a limit of 10. And if you're lazy, there's an auto-favorite button as well.
 
 To allow the user to retain his session, a login form is displayed.
 
-_Note: In the trial period, anonymous users can favorite as well. This is subject to change at any time_.
+_Note: In the 'trial period', anonymous users can favorite as well. This is subject to change at any time_.
 
 The login form fields has the following rules:
 
