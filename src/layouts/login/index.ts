@@ -129,9 +129,8 @@ export default class Login extends mixins(StoreMixin)  {
   }
 
   onKeyDown(event: KeyboardEvent) {
-    const isEscape = event.key === "Enter" || event.which == 13;
-
-    if (isEscape) {
+    const isEnter = event.key === "Enter" || event.which == 13;
+    if (isEnter) {
       this.submitLogin();
     }
   }
