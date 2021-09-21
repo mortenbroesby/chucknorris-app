@@ -1,6 +1,4 @@
-# Assignment
-
-## Introduction
+# Introduction
 
 This project has mainly been tested in Chrome and Canary, although it should work in other browsers.
 
@@ -8,7 +6,7 @@ It is built with parcel as build tool, and utilises Vue.js with TypeScript, VueX
 
 Jest is used to unit test core component(s).
 
-### About the application itself
+## About the application itself
 
 The application is a platform that gives you the ability to consume Chuck Norris jokes.
 You can also favorite items - up to a limit of 10. And if you're lazy, there's an auto-favorite button as well.
